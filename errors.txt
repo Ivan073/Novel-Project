@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 24: expected end of line
+    stop sound 'audio/wagon_creak.mp3' fadeout 1
+               ^
+
+Ren'Py Version: Ren'Py 7.4.11.2266
+Wed Jun 22 00:25:36 2022
