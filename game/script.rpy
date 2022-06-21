@@ -1,7 +1,9 @@
 ﻿# Вы можете расположить сценарий своей игры в этом файле.
 
 # Определение персонажей игры.
-define e = Character('Эйлин', color="#c8ffc8")
+define nn = Character('???', color="#c8ffc8")
+define non = Character('?????', color="#c8ffc8")
+define gg = Character('YOU')
 
 # Вместо использования оператора image можете просто
 # складывать все ваши файлы изображений в папку images.
@@ -11,12 +13,20 @@ define e = Character('Эйлин', color="#c8ffc8")
 # Игра начинается здесь:
 label start:
 
-    scene bg room
+    nn "Очередной эксперимент не удался, только материалы пошли насмарку…"
 
-    show eileen happy
+    non "Интересно, сколько еще он будет пробовать?"
 
-    e "Вы создали новую игру Ren'Py."
+    nn "Не болтай лишнего! Лучше сбрасывай!"
 
-    e "Добавьте сюжет, изображения и музыку и отправьте её в мир!"
+    play music "audio/dunF.mp3" fadeout 1
+
+    scene dungeon
+
+    show dar
+
+    gg "Мое имя…  Где я?"
+
+    #stop music fadeout1
 
     return

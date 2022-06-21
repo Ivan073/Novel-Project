@@ -23,34 +23,34 @@ init python:
 ## Цвета текста в интерфейсе.
 
 ## Акцентный цвет используется в заголовках и подчёркнутых текстах.
-define gui.accent_color = u'#000000'
+define gui.accent_color = u'#cc0000'
 
 ## Цвет, используемый в текстовой кнопке, когда она не выбрана и не наведена.
-define gui.idle_color = u'#aaaaaa'
+define gui.idle_color = u'#888888'
 
 ## Small_color используется в маленьком тексте, который должен быть ярче/темнее,
 ## для того, чтобы выделяться.
-define gui.idle_small_color = u'#888888'
+define gui.idle_small_color = u'#aaaaaa'
 
 ## Цвет, используемых в кнопках и панелях, когда они наведены.
-define gui.hover_color = u'#000000'
+define gui.hover_color = u'#e06666'
 
 ## Цвет, используемый текстовой кнопкой, когда она выбрана, но не наведена.
 ## Кнопка может быть выбрана, если это текущий экран или текущее значение
 ## настройки.
-define gui.selected_color = u'#555555'
+define gui.selected_color = u'#ffffff'
 
 ## Цвет, используемый текстовой кнопкой, когда она не может быть выбрана.
-define gui.insensitive_color = u'#aaaaaa7f'
+define gui.insensitive_color = u'#8888887f'
 
 ## Цвета, используемые для частей панелей, которые не заполняются. Они
 ## используются не напрямую, а только при воссоздании файлов изображений.
-define gui.muted_color = u'#666666'
-define gui.hover_muted_color = u'#999999'
+define gui.muted_color = u'#510000'
+define gui.hover_muted_color = u'#7a0000'
 
 ## Цвета, используемые в тексте диалогов и выборов.
-define gui.text_color = u'#404040'
-define gui.interface_text_color = u'#404040'
+define gui.text_color = u'#ffffff'
+define gui.interface_text_color = u'#ffffff'
 
 
 ## Шрифты и их размеры #########################################################
