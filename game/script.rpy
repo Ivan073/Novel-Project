@@ -4,6 +4,8 @@
 define nn = Character('???', color="#c8ffc8")
 define non = Character('?????', color="#c8ffc8")
 define gg = Character('YOU')
+define cat = Character('Клара')
+define sys = Character('System')
 
 # Вместо использования оператора image можете просто
 # складывать все ваши файлы изображений в папку images.
@@ -27,10 +29,20 @@ label start:
 
     scene dungeon
 
-    show dar
-
-    gg "Мое имя…  Где я?"
+    show catcharpicture
 
     #stop music fadeout1
+
+    cat "Ого! А ты еще кто? И как здесь оказался?"
+
+    cat "Что-то тут темно... Дай-ка рассмотреть себя получше."
+
+    scene dungeon
+
+    show 33:
+        xalign 0.5
+        yalign 0.5
+    sys "Выберите свою внешность"
+
 
     return

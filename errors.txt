@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 24: expected end of line
-    stop sound 'audio/wagon_creak.mp3' fadeout 1
-               ^
+File "game/script.rpy", line 31: expected 'image_name_component' not found.
+    show "catcharpicture.png"
+         ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Wed Jun 22 00:25:36 2022
+Wed Aug 10 02:32:17 2022
