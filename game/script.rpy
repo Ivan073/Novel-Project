@@ -9,9 +9,9 @@ define sys = Character('System')
 
 init python:
     character_option = 0
-    def show_character():                   #функция просто размещает персонажа на экране, 
-        if character_option == 1:           #для более детального размещения необходимо добавить параметры функиции 
-            renpy.show("character1")        #и потом передать в renpy show
+    def show_character():                   #функция просто размещает персонажа на экране,
+        if character_option == 1:           #для более детального размещения необходимо добавить параметры функиции
+            renpy.show("character1")      #и потом передать в renpy show
         if character_option == 2:           #надо переделать когда определимся с размещением персонажа на экране
             renpy.show("character2")
         if character_option == 3:
@@ -61,9 +61,9 @@ label start:
 
     scene dungeon
 
-    show 33:
-        xalign 0.5
-        yalign 0.5
+    #show character1:
+    #    xalign 0.5
+    #    yalign 0.7
     sys "Выберите свою внешность"
 
 
@@ -158,7 +158,8 @@ label start:
 
     label character_selected:
     $hide_character()
-    "*Выбор закончен*"
+    sys "*Выбор закончен*"
+    sys "Введите ваше имя"
 
     $show_character()
     gg "*Образец работы с персонажем*"
