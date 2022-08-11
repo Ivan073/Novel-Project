@@ -4,14 +4,14 @@
 define nn = Character('???', color="#c8ffc8")
 define non = Character('?????', color="#c8ffc8")
 define gg = Character('YOU')
-define cat = Character('Клара')
+define cat = Character("[nc]")
 define sys = Character('System')
 
 init python:
     character_option = 0
     def show_character(pos=[]):             #функция принимает массив трансформаций которые флияют на размещение персонажа
         if character_option == 1:           #трансформации это функции
-            renpy.show("character1", pos)   #трансформации уже прописанные в renPy перечислены здесь https://www.renpy.org/doc/html/transforms.html   
+            renpy.show("character1", pos)   #трансформации уже прописанные в renPy перечислены здесь https://www.renpy.org/doc/html/transforms.html
         if character_option == 2:           #если понадобится можно добавить свои кастомные функции-трансформации
             renpy.show("character2", pos)
         if character_option == 3:
@@ -49,6 +49,7 @@ label start:
     play sound 'audio/hum_falling.mp3'
     play music "audio/dunF.mp3" fadeout 1
 
+    $nc = "Пушистое нечто"
     scene dungeon
 
     show catcharpicture
@@ -88,9 +89,9 @@ label start:
 
 
     label get_character1:
-        show character1
+        show character1 at truecenter
         "*Описание персонажа1 или какая-нибудь фраза или что-нибудь по сюжету*"
-        show character1
+        hide character1
         menu:
             "Подтвердить":
                 $character_option = 1
@@ -102,7 +103,7 @@ label start:
 
 
     label get_character2:
-        show character2
+        show character2 at truecenter
         "*Описание персонажа2 или какая-нибудь фраза или что-нибудь по сюжету*"
         hide character2
         menu:
@@ -116,7 +117,7 @@ label start:
 
 
     label get_character3:
-        show character3
+        show character3 at truecenter
         "*Описание персонажа3 или какая-нибудь фраза или что-нибудь по сюжету*"
         hide character3
         menu:
@@ -130,7 +131,7 @@ label start:
 
 
     label get_character4:
-        show character4
+        show character4 at truecenter
         "*Описание персонажа4 или какая-нибудь фраза или что-нибудь по сюжету*"
         hide character4
         menu:
@@ -143,7 +144,7 @@ label start:
 
 
     label get_character5:
-        show character5
+        show character5 at truecenter
         "*Описание персонажа5 или какая-нибудь фраза или что-нибудь по сюжету*"
         hide character5
         menu:
@@ -159,7 +160,22 @@ label start:
     label character_selected:
     $hide_character()
     sys "*Выбор закончен*"
-    sys "Введите ваше имя"
+    show catcharpicture:
+            xalign 0.5
+            yalign 0.7
+
+    cat "Как-то ты странно одет для этого подземелья.."
+    cat "А как, говоришь, тебя зовут?"
+
+    python:
+        name = renpy.input("Как вас зовут?")
+        name = name.strip() or "Пустота"
+
+
+    cat "[name], значит? Хм, где-то я это слышала."
+    $nc = "Клара"
+    cat "Мое имя Клара, приятно познакомиться"
+    cat "Так что привело тебя сюда?"
 
     $show_character()
     gg "*Образец работы с персонажем*"
