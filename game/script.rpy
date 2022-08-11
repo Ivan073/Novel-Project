@@ -9,17 +9,17 @@ define sys = Character('System')
 
 init python:
     character_option = 0
-    def show_character():                   #функция просто размещает персонажа на экране,
-        if character_option == 1:           #для более детального размещения необходимо добавить параметры функиции
-            renpy.show("character1")      #и потом передать в renpy show
-        if character_option == 2:           #надо переделать когда определимся с размещением персонажа на экране
-            renpy.show("character2")
+    def show_character(pos=[]):             #функция принимает массив трансформаций которые флияют на размещение персонажа
+        if character_option == 1:           #трансформации это функции
+            renpy.show("character1", pos)   #трансформации уже прописанные в renPy перечислены здесь https://www.renpy.org/doc/html/transforms.html   
+        if character_option == 2:           #если понадобится можно добавить свои кастомные функции-трансформации
+            renpy.show("character2", pos)
         if character_option == 3:
-            renpy.show("character3")
+            renpy.show("character3", pos)
         if character_option == 4:
-            renpy.show("character4")
+            renpy.show("character4", pos)
         if character_option == 5:
-            renpy.show("character5")
+            renpy.show("character5", pos)
 
     def hide_character():
         if character_option == 1:
@@ -163,6 +163,12 @@ label start:
 
     $show_character()
     gg "*Образец работы с персонажем*"
+    $show_character([right()])
+    gg "*Справа*"
+    $show_character([left()])
+    gg "*Слева*"
+    $show_character([topleft()])
+    gg "*Слева сверху*"
     $hide_character()
     "*Персонаж убран*"
 
