@@ -90,7 +90,7 @@ label start:
 
     label get_character1:
         show character1 at truecenter
-        "*Описание персонажа1 или какая-нибудь фраза или что-нибудь по сюжету*"
+        "*Воин, боевой топор которого рассечет любого врага, а задорная улыбка рассеет все сомнения*"
         hide character1
         menu:
             "Подтвердить":
@@ -104,7 +104,7 @@ label start:
 
     label get_character2:
         show character2 at truecenter
-        "*Описание персонажа2 или какая-нибудь фраза или что-нибудь по сюжету*"
+        "*Астролог призывает бушующие волны и создает отражение звездного неба, заключая врагов в теневые пузыри*"
         hide character2
         menu:
             "Подтвердить":
@@ -118,7 +118,7 @@ label start:
 
     label get_character3:
         show character3 at truecenter
-        "*Описание персонажа3 или какая-нибудь фраза или что-нибудь по сюжету*"
+        "*Владелец копья, выкованного для борьбы с чудовищами доисторических горных хребтов, что поможет ему обуздать воздушную стихию*"
         hide character3
         menu:
             "Подтвердить":
@@ -132,7 +132,7 @@ label start:
 
     label get_character4:
         show character4 at truecenter
-        "*Описание персонажа4 или какая-нибудь фраза или что-нибудь по сюжету*"
+        "*Некогда волшебник, практикующий тайную магию, который в погоне за источниками магической мощи отказался от своих учений в пользу тёмной магии*"
         hide character4
         menu:
             "Подтвердить":
@@ -145,7 +145,7 @@ label start:
 
     label get_character5:
         show character5 at truecenter
-        "*Описание персонажа5 или какая-нибудь фраза или что-нибудь по сюжету*"
+        "*Алая ведьма, мечтающая сжечь всех демонов мира. Языки пламени вегда ласково касаются ее рук, а широкие поля шляпы прячут взгляд*"
         hide character5
         menu:
             "Подтвердить":
@@ -176,6 +176,87 @@ label start:
     $nc = "Клара"
     cat "Мое имя Клара, приятно познакомиться"
     cat "Так что привело тебя сюда?"
+
+    hide catcharpicture
+    show catcharpicture:
+        xalign 0
+        yalign 0.7
+
+    menu:
+
+        "Не знаю, я здесь совершенно случайно.":
+            jump choice1_1
+
+        "Меня сбросили сюда с телеги какие-то люди. Больше ничего не помню.":
+            jump choice1_2
+
+    label choice1_1:
+
+        $ torch_flag = False
+
+        cat "Правда? Ну ладно, будем выбираться."
+
+        jump choice1_done
+
+    label choice1_2:
+
+        $ torch_flag = True
+
+        cat "Люди? Я здесь видела только огра. И он как раз обронил вот тот факел, который может нам пригодиться."
+
+        show ext_torch at truecenter
+
+        cat "А теперь можем выбираться отсюда."
+        hide ext_torch
+        show ext_torch at topright
+        jump choice1_done
+
+    label choice1_done:
+
+    # Сделать постепенное затемнение экрана (?)
+    cat "С каждым шагом становится все темнее"
+
+    scene dark
+
+    if torch_flag == True:
+        cat "Как раз пригодиться факел, который мы нашли! Зажжем?"
+        menu:
+
+            "Да.":
+                jump choic
+
+            "Нет.":
+                jump cho
+
+        label choic:
+            $ on_flag = True
+            scene frozen_cave
+            show torch at topright
+            show catcharpicture at left
+        label cho:
+            $ on_flag = False
+            cat "Боишься увидеть что-то страшное? Ха!"
+
+        label choi_done:
+            cat "Я в любом случае хорошо вижу в темноте..."
+
+    cat "Ого, да тут же ледяная пещера! А там вдалеке, кажется, свет."
+    cat "Обычный ледяной пол сменился узорчатыми плитками..."
+    scene frozen_maze
+    if torch_flag == True:
+        show ext_torch at topright
+        if on_flag == True:
+            hide ext_torch
+            show torch at topright
+    show catcharpicture at left
+    cat "А чтобы выйти отсюда, придется постараться.."
+    cat "Левая дверь кажется самой интересной. Может, сперва пойдем туда?"
+    if torch_flag == True:
+        if on_flag == True:
+            gg "Может, стоит потушить факел?"
+            cat "Не нужно, он может пригодиться в этом месте. Не факт, что во всех комнатах так светло."
+
+    #Здесь мини-игра лабиринт
 
     $show_character()
     gg "*Образец работы с персонажем*"

@@ -2,13 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 52: expected statement.
-    nc = "Пушистое нечто"
-       ^
-
-File "game/script.rpy", line 178: expected statement.
-    nc = "Клара"
-       ^
+File "game/script.rpy", line 255: reached end of line when expecting ':'.
+    if on_flag == True
+                      ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Thu Aug 11 20:29:17 2022
+Mon Aug 15 22:34:45 2022
