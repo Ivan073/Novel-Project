@@ -233,12 +233,17 @@ label start:
             scene frozen_cave
             show torch at topright
             show catcharpicture at left
+            jump choi_done
         label cho:
             $ on_flag = False
             cat "Боишься увидеть что-то страшное? Ха!"
+            jump choi_done
+
 
         label choi_done:
             cat "Я в любом случае хорошо вижу в темноте..."
+
+      
 
     cat "Ого, да тут же ледяная пещера! А там вдалеке, кажется, свет."
     cat "Обычный ледяной пол сменился узорчатыми плитками..."
