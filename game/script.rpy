@@ -345,7 +345,52 @@ label start:
 
             "Вперед":
                 "*Идет вперед*"
-                #сделать бой
+                #бой
+                hide catcharpicture 
+                $show_character([middle_left()])
+                show goblin at middle_right:
+                    zoom 1.3
+                "Вы встретили гоблина. Он быстро к вам приближается"
+                $in_fight = True
+                $wounded = False
+                label .fight_start:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Гоблин был быстрее и ранил вас"
+                            if wounded:
+                                "Гоблин нанес смертельное ранение"
+                                jump death
+                            $wounded = True
+                            jump .fight_start
+                        "Защититься":
+                            "Атака была не сильной и вы смогли ее блокировать, оглушив гоблина"
+                            jump .goblin_staggered
+                        "Увернуться":
+                            "Гоблин оказался проворным и смог ранить вас"
+                            "Гоблин был быстрее и ранил вас"
+                            if wounded:
+                                "Гоблин нанес смертельное ранение"
+                                jump death
+                            $wounded = True
+                            jump .fight_start
+
+                label .goblin_staggered:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы успели добить гоблина"
+                        "Защититься":
+                            "Гоблин оправился от удара"
+                            jump .fight_start
+                        "Увернуться":
+                            "Гоблин оправился от удара"
+                            jump .fight_start
+
+                hide goblin
+                $hide_character()
+                $in_fight = False
+                show catcharpicture at left
                 jump room8
 
             "Направо":
@@ -364,7 +409,9 @@ label start:
 
             "Вперед":
                 "*Идет вперед*"
-                scene gold
+                scene gold:
+                    zoom 2.4
+                    xalign 0.5
                 gg "Сокровище!"
                 #здесь получить сокровище
                 scene frozen_maze
@@ -405,8 +452,13 @@ label start:
 
             "Вперед":
                 "*Идет вперед*"
+                scene gold:
+                    zoom 2.4
+                    xalign 0.5
                 gg "Сокровище!"
-                show mimic
+                scene frozen_cave
+                show mimic at truecenter:
+                    zoom 4.0
                 gg "Не сокровище..."
                 jump death
 
@@ -440,8 +492,30 @@ label start:
             "Подозрительная комната"
             "Налево":
                 "*Идет налево*"
-                #сделать бой
-                "*Смертельный бой*"
+                #бой
+                hide catcharpicture 
+                $show_character([middle_left()])
+                show hakutaku at middle_right:
+                    zoom 2.5
+                "Вы встретили огромное чудовище. Кажется оно недовольно"
+                $in_fight = True
+                label .fight_start:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Ваша атака не нанесла никакого урона. Вас раздавили лапой насмерть"
+                            jump death
+                        "Защититься":
+                            "Монстр разбил вашу защиту одним ударом и добил вас вторым"
+                            jump death
+                        "Бежать":
+                            "Только вы обернулись чтобы убежать, как стены лабиринта растаяли. Вместе с вами"
+                            jump death
+
+                hide hakutaku
+                $hide_character()
+                $in_fight = False
+                show catcharpicture at left
                 jump death
 
             "Вперед":
@@ -461,9 +535,14 @@ label start:
             "Налево":
                 "*Идет налево*"
                 gg "Сокровище!"
-                show mimic
+                scene gold:
+                    zoom 2.4
+                    xalign 0.5
+                gg "Сокровище!"
+                scene frozen_cave
+                show mimic at truecenter:
+                    zoom 4.0
                 gg "Не сокровище..."
-                jump death
                 jump death
 
             "Вперед":

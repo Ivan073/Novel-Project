@@ -2,11 +2,9 @@
 errors listed below, and try again.
 
 
-The label room1.fight_start is defined twice, at File "game/script.rpy", line 288:
-                label .fight_start:
-and File "game/script.rpy", line 319:
-                label .fight_start:
-
+File "game/script.rpy", line 490: Line is indented, but the preceding show statement statement does not expect a block. Please check this line's indentation.
+    zoom 2.0
+    ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Tue Aug 16 20:07:58 2022
+Tue Aug 16 20:36:44 2022
