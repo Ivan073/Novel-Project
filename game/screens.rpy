@@ -205,11 +205,19 @@ style input:
 ## https://www.renpy.org/doc/html/screen_special.html#choice
 
 screen choice(items):
-    style_prefix "choice"
+    if in_fight:
+        style_prefix "fight_choice"
 
-    vbox:
-        for i in items:
-            textbutton i.caption action i.action
+        vbox:
+            for i in items:
+                textbutton i.caption action i.action
+            
+    else:
+        style_prefix "choice"
+
+        vbox:
+            for i in items:
+                textbutton i.caption action i.action
 
 
 ## Когда этот параметр True, заголовки меню будут проговариваться рассказчиком.
@@ -234,6 +242,22 @@ style choice_button is default:
 style choice_button_text is default:
     properties gui.button_text_properties("choice_button")
 
+
+
+#дополнительный стиль для боя
+style fight_choice_vbox is vbox
+style fight_choice_vbox:
+    xalign 0.5
+    ypos 665
+    yanchor 0.5
+
+    spacing 15
+
+
+style fight_choice_button is button
+style fight_choice_button is default:
+    properties gui.button_properties("choice_button")
+    xsize 450    
 
 ## Экран быстрого меню #########################################################
 ##

@@ -9,6 +9,7 @@ define sys = Character('System')
 
 init python:
     character_option = 0
+    in_fight = False           #эта переменная используется в screens.rpy для изменения стиля менб=ю выбора
     def show_character(pos=[]):             #функция принимает массив трансформаций которые флияют на размещение персонажа
         if character_option == 1:           #трансформации это функции
             renpy.show("character1", pos)   #трансформации уже прописанные в renPy перечислены здесь https://www.renpy.org/doc/html/transforms.html
@@ -33,6 +34,14 @@ init python:
         if character_option == 5:
             renpy.hide("character5")
 
+
+transform middle_left:
+    xalign 0.0
+    yalign 0.5
+
+transform middle_right:
+    xalign 1.0
+    yalign 0.5
 
 # Игра начинается здесь:
 label start:
@@ -270,10 +279,28 @@ label start:
             "Куда идем?"
             "Налево":
                 "*Идет налево*"
-                #сделать бой
+                #бой
+                hide catcharpicture 
+                $show_character([middle_left()])
+                show slime at middle_right
+                "Вы встретили слизня. Он ничего не делает"
+                $in_fight = True
+                label .fight_start:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы победили слизня"
+                        "Защититься":
+                            "Слизень вас игнорирует"
+                            jump .fight_start
+                        "Увернуться":
+                            "Слизень вас игнорирует"
+                            jump .fight_start
 
-
-
+                hide slime
+                $hide_character()
+                $in_fight = False
+                show catcharpicture at left 
                 jump room2
 
             "Вперед":
@@ -283,7 +310,28 @@ label start:
 
             "Направо":
                 "*Идет направо*"
-                #сделать бой
+                #бой
+                hide catcharpicture 
+                $show_character([middle_left()])
+                show slime at middle_right
+                "Вы встретили слизня. Он ничего не делает"
+                $in_fight = True
+                label .fight2_start:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы победили слизня"
+                        "Защититься":
+                            "Слизень вас игнорирует"
+                            jump .fight2_start
+                        "Увернуться":
+                            "Слизень вас игнорирует"
+                            jump .fight2_start
+
+                hide slime
+                $hide_character()
+                $in_fight = False
+                show catcharpicture at left
                 jump room6
 
     label room2:

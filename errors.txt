@@ -2,9 +2,11 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 394: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation.
-    "*Какая-нибудь причина смерти-ловушка*"
-    ^
+The label room1.fight_start is defined twice, at File "game/script.rpy", line 288:
+                label .fight_start:
+and File "game/script.rpy", line 319:
+                label .fight_start:
+
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Tue Aug 16 16:53:11 2022
+Tue Aug 16 20:07:58 2022
