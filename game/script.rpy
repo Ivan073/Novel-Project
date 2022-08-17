@@ -6,6 +6,8 @@ define non = Character('?????', color="#c8ffc8")
 define gg = Character('YOU')
 define cat = Character("[nc]")
 define sys = Character('System')
+define sphinx = Character('Великий Сфинкс')
+define min = Character('Минос, Король Лабиринта')
 
 init python:
     character_option = 0
@@ -42,6 +44,18 @@ transform middle_left:
 transform middle_right:
     xalign 1.0
     yalign 0.5
+
+transform left_door:
+    xalign 0.05
+    yalign 0.05
+
+transform center_door:
+    xalign 0.5
+    yalign 0
+
+transform right_door:
+    xalign 0.75
+    yalign 0.25
 
 # Игра начинается здесь:
 label start:
@@ -252,11 +266,14 @@ label start:
         label choi_done:
             cat "Я в любом случае хорошо вижу в темноте..."
 
-      
+
 
     cat "Ого, да тут же ледяная пещера! А там вдалеке, кажется, свет."
     cat "Обычный ледяной пол сменился узорчатыми плитками..."
     scene frozen_maze
+    stop music
+    play music "audio/maze.mp3" fadeout 1
+
     if torch_flag == True:
         show ext_torch at topright
         if on_flag == True:
@@ -275,12 +292,16 @@ label start:
     #нужны символы, бои, ловушки, сундуки, реплики
     label room1:
     #отображение подсказок
+    scene frozen_maze
+    show catcharpicture at left
+    show runa at left_door
     menu:
             "Куда идем?"
             "Налево":
-                "*Идет налево*"
+                "Шаги отдаются эхом от стен ледяной пещеры"
                 #бой
-                hide catcharpicture 
+                hide catcharpicture
+                scene frozen_cave
                 $show_character([middle_left()])
                 show slime at middle_right
                 "Вы встретили слизня. Он ничего не делает"
@@ -300,20 +321,27 @@ label start:
                 hide slime
                 $hide_character()
                 $in_fight = False
-                show catcharpicture at left 
+                scene frozen_maze
+                show catcharpicture at left
                 jump room2
 
             "Вперед":
-                "*Идет вперед*"
-                "*Какая-нибудь причина смерти*"
+                "С каждым сделанным шагом становится теплее. Что же так нагревает воздух?"
+                scene fire
+                "За дверью разверзлось адское пламя, поглощающее все вокруг"
+                if character_option == 5:
+                    $show_character([truecenter()])
+                    gg "Огонь не причинит мне вреда, это моя стихия. Возвращаемся обратно."
+                    jump room1
                 jump death
 
             "Направо":
                 "*Идет направо*"
                 #бой
-                hide catcharpicture 
+                hide catcharpicture
+                scene dirt_cave
                 $show_character([middle_left()])
-                show slime at middle_right
+                show slime2 at middle_right
                 "Вы встретили слизня. Он ничего не делает"
                 $in_fight = True
                 label .fight2_start:
@@ -328,25 +356,34 @@ label start:
                             "Слизень вас игнорирует"
                             jump .fight2_start
 
-                hide slime
+                hide slime2
                 $hide_character()
                 $in_fight = False
+                scene frozen_maze
                 show catcharpicture at left
                 jump room6
 
     label room2:
     #отображение подсказок
+    scene frozen_maze
+    show catcharpicture at left
+    show runa at right_door
     menu:
             "Куда идем?"
             "Налево":
-                "*Идет налево*"
-                "*Какая-нибудь причина смерти*"
+                "С потолка на вас капает вода, но вы продолжаете идти"
+                scene water_cave
+                "Вы оказались в подводной пещере. Дверь за вами сразу закрылась"
+                if character_option == 2:
+                    $show_character([truecenter()])
+                    gg "Воду получится отодвинуть, но нужно поторапливаться и возвращаться. "
+                    jump room2
                 jump death
 
             "Вперед":
-                "*Идет вперед*"
+                "Чем дальше вы продвигаетесь по пещере, тем отчетливее виднеются чьи-то тени."
                 #бой
-                hide catcharpicture 
+                hide catcharpicture
                 $show_character([middle_left()])
                 show goblin at middle_right:
                     zoom 1.3
@@ -368,7 +405,6 @@ label start:
                             jump .goblin_staggered
                         "Увернуться":
                             "Гоблин оказался проворным и смог ранить вас"
-                            "Гоблин был быстрее и ранил вас"
                             if wounded:
                                 "Гоблин нанес смертельное ранение"
                                 jump death
@@ -394,21 +430,32 @@ label start:
                 jump room8
 
             "Направо":
-                "*Идет направо*"
+                "На полу местами лежит песок, что хрустит под ногами с каждым шагом"
                 #сделать загадку
+                scene sphinks
+                show catcharpicture at left
+                sphinx "Что за жалкие смертные пожаловали в мою обитель?"
+                cat "Мы случайно дверью ошиблись! Сейчас уже уходим.."
+                sphinx "Теперь вам дороги назад нет, сперва отгадайте загадку."
+                sphinx "Кто не дышит, но живет; хоть не нужно - много пьет; и в жизни, и в смерти тело как лед."
+                #ответ: рыба
                 jump room3
 
     label room3:
     #отображение подсказок
+    scene frozen_maze
+    show catcharpicture at left
+    show runa at center_door
     menu:
             "Куда идем?"
             "Налево":
-                "*Идет налево*"
-                "*Какая-нибудь причина смерти-ловушка*"
+                "Эта дверь сразу кажется подозрительной, но вы все равно открываете ее"
+                scene snakes
+                "В ваших глазах темнеет после множественных змеиных укусов."
                 jump death
 
             "Вперед":
-                "*Идет вперед*"
+                "За дверью виден блеск монет."
                 scene gold:
                     zoom 2.4
                     xalign 0.5
@@ -418,22 +465,39 @@ label start:
                 jump room4
 
             "Направо":
-                "*Идет направо*"
-                "*Какая-нибудь причина смерти*"
+                "Из-за двери веет свежим ветром. Может, это выход?"
+                scene clouds
+                if character_option == 3:
+                    $show_character([truecenter()])
+                    gg "Поток воздуха из копья надолго нас не удержит. Клара, нам стоит быстрее вернуться."
+                    jump room3
+                "Полет был красивым, как у птицы, но недолгим: слишком скоро случилось столкновение с землей."
                 jump death
 
     label room4:
     #отображение подсказок
+    scene frozen_maze
+    show catcharpicture at left
+    show runa at right_door
     menu:
             "Куда идем?"
             "Налево":
-                "*Идет налево*"
+                "Кажется, за дверью слышится карканье воронов."
+                scene put_stone
+                show catcharpicture at left
+                cat "Как думаешь, в какую сторону нам повернуть?"
+                menu:
+                    "Налево":
+                        jump death
+                    "Направо":
+                        jump room13
                 #сделать загадку
-                jump room13
+
 
             "Вперед":
-                "*Идет вперед*"
-                "*Какая-нибудь причина смерти-ловушка*"
+                "За дверью оказывается лесная поляна. Неужели это выход?"
+                scene pit
+                "Вы угодили в волчью яму."
                 jump death
 
             "Направо":
@@ -443,15 +507,21 @@ label start:
 
     label room5:
     #отображение подсказок
+    show runa at left_door
     menu:
             "Кажется выход близко"
             "Налево":
-                "*Идет налево*"
+                "Шагая, вы слышите чье-то тяжелое дыхание"
                 #сделать загадку
+                show minotaur at truecenter
+                min "Так значит, у вас получилось преодолеть большую часть моего лабиринта."
+                min "Так просто вы не уйдете. Сначала отгадайте загадку."
+                min "Мертвых оживляет. Нас смешит, а порой - печалит. Рождается вмиг. Гибнет, когда ты - старик."
+                #ответ: память
                 jump lab_exit
 
             "Вперед":
-                "*Идет вперед*"
+                "За дверью слышится звон монет."
                 scene gold:
                     zoom 2.4
                     xalign 0.5
@@ -459,16 +529,22 @@ label start:
                 scene frozen_cave
                 show mimic at truecenter:
                     zoom 4.0
-                gg "Не сокровище..."
+                gg "Это еще что за существо?!"
                 jump death
 
             "Направо":
-                "*Идет направо*"
-                "*Какая-нибудь причина смерти*"
+                "Вы слышите тихое поскрипывание, раздающееся словно от старого дерева."
+                scene roots
+                if character_option == 1:
+                    $show_character([truecenter()])
+                    gg "Топором можно разрубать корни, но долго мне не продержаться. Нужно убираться отсюда."
+                    jump room5
+                "Корни оплетают вас и вы задыхаетесь."
                 jump death
 
     label room6:
     #отображение подсказок
+    show runa at center_door
     menu:
             "Кажется свернули не туда"
             "Налево":
@@ -488,12 +564,15 @@ label start:
 
     label room7:
     #отображение подсказок
+    show runa at center_door
+    show runa at right_door
+    show runa at left_door
     menu:
             "Подозрительная комната"
             "Налево":
                 "*Идет налево*"
                 #бой
-                hide catcharpicture 
+                hide catcharpicture
                 $show_character([middle_left()])
                 show hakutaku at middle_right:
                     zoom 2.5
@@ -530,6 +609,8 @@ label start:
 
     label room8:
     #отображение подсказок
+    show runa at right_door
+    show runa at left_door
     menu:
             "Кажется свернули не туда"
             "Налево":
@@ -557,6 +638,7 @@ label start:
 
     label room9:
     #отображение подсказок
+    show runa at center_door
     menu:
             "Куда идем?"
             "Налево":
@@ -595,6 +677,7 @@ label start:
 
     label room11:
     #отображение подсказок
+    show runa at center_door
     menu:
             "Кажется выход близко"
             "Налево":

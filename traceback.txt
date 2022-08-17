@@ -1,32 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 276, in script
-    $show_character(left())
-  File "game/script.rpy", line 276, in <module>
-    $show_character(left())
-  File "game/script.rpy", line 21, in show_character
-    renpy.show("character4", pos)
-TypeError: 'ATLTransform' object is not iterable
+  File "game/script.rpy", line 328, in script
+    if $character_option == 5:
+SyntaxError: invalid syntax (script.rpy, line 328)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 276, in script
-    $show_character(left())
-  File "renpy/ast.py", line 928, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "renpy/python.py", line 2245, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 276, in <module>
-    $show_character(left())
-  File "game/script.rpy", line 21, in show_character
-    renpy.show("character4", pos)
-  File "renpy/exports.py", line 750, in show
-    for i in at_list:
-TypeError: 'ATLTransform' object is not iterable
+  File "game/script.rpy", line 328, in script
+    if $character_option == 5:
+  File "renpy/ast.py", line 1898, in execute
+    if renpy.python.py_eval(condition):
+  File "renpy/python.py", line 2274, in py_eval
+    code = py_compile(code, 'eval')
+  File "renpy/python.py", line 835, in py_compile
+    raise e
+SyntaxError: invalid syntax (script.rpy, line 328)
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Tue Aug 16 19:54:34 2022
+Wed Aug 17 21:36:03 2022
