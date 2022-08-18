@@ -441,7 +441,15 @@ label start:
                 sphinx "Теперь вам дороги назад нет, сперва отгадайте загадку."
                 sphinx "Кто не дышит, но живет; хоть не нужно - много пьет; и в жизни, и в смерти тело как лед."
                 #ответ: рыба
-                jump room3
+                python:
+                    answer = renpy.input("Каков ответ?")
+                    answer = answer.lower()
+                if answer == "рыба":
+                    sphinx "Верно"
+                    jump room3
+                else:
+                    sphinx "Неверно"
+                    jump death
 
     label room3:
     #отображение подсказок
@@ -520,7 +528,16 @@ label start:
                 min "Так просто вы не уйдете. Сначала отгадайте загадку."
                 min "Мертвых оживляет. Нас смешит, а порой - печалит. Рождается вмиг. Гибнет, когда ты - старик."
                 #ответ: память
-                jump lab_exit
+                python:
+                    answer = renpy.input("Каков ответ?")
+                    answer = answer.lower()
+                if answer == "память":
+                    min "Верно"
+                    jump lab_exit
+                else:
+                    min "Неверно"
+                    jump death
+                
 
             "Вперед":
                 "За дверью слышится звон монет."
