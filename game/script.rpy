@@ -503,7 +503,6 @@ label start:
                         jump room13
                 #сделать загадку
 
-
             "Вперед":
                 "За дверью оказывается лесная поляна. Неужели это выход?"
                 scene pit
@@ -512,7 +511,146 @@ label start:
 
             "Направо":
                 "*Идет направо*"
-                #сделать бой
+                #бой
+
+                hide catcharpicture
+                $show_character([middle_left()])
+                show hakutaku at middle_right:
+                    zoom 1.3
+                "Вы встретили огненного монстра. Он вас еще не заметил"
+                $in_fight = True
+                $monster_health = 3
+                $your_health = 4
+                label .fight_start:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы атаковали монстра"
+                            if character_option == 2:
+                                "Ваша водная атака нанесла значительный урон"
+                                $monster_health -= 2
+                            else:
+                                $monster_health -= 1
+                            jump .paw_attack
+                        "Защититься":
+                            "Монстр заметил вас"
+                            jump .paw_attack
+                        "Увернуться":
+                            "Монстр заметил вас"
+                            jump .paw_attack
+
+                label .paw_attack:
+                    "Монстр замахивается своей лапой"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            if character_option == 1:
+                                "Атака топором остановила лапу и ранила чудовище"
+                                $monster_health -= 1
+                                if monster_health <=0:
+                                    jump .end_fight
+                                jump .fire_attack
+                            "Атака ранила вас"
+                            $your_health -=2
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .fire_attack
+                        "Защититься":
+                            "Атака нанесла небольшой урон"
+                            $your_health -=1
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .monster_prepares_fire
+                        "Увернуться":
+                            "Вы успешно увернулись"
+                            jump .monster_prepares_fire
+
+                label .monster_prepares_fire:
+                    "Монстр готовится к следущей атаке"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы атаковали монстра"
+                            if character_option == 2:
+                                "Ваша водная атака нанесла значительный урон"
+                                $monster_health -= 2
+                            else:
+                                $monster_health -= 1
+                            if monster_health <=0:
+                                jump .end_fight    
+                            jump .fire_attack
+                        "Защититься":
+                            jump .fire_attack
+                        "Увернуться":
+                            jump .fire_attack
+
+                label .fire_attack:
+                    "Монстр пускает в вас волну огня"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            if character_option == 3:
+                                "Атака ветром рассеяла огонь и нанесла урон"
+                                $monster_health -= 1
+                                if monster_health <=0:
+                                    jump .end_fight
+                                jump .paw_attack
+                            "Атака ранила вас"
+                            if character_option == 5:
+                                "Огонь не сильно вам вредит"
+                                $your_health -=1
+                                if your_health <=0:
+                                    "Эта атака добила вас"
+                                    jump death
+                                jump .monster_prepares_paw
+                            $your_health -=2
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .paw_attack
+                        "Защититься":
+                            "Атака нанесла небольшой урон"
+                            $your_health -=1
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .monster_prepares_paw
+                        "Увернуться":
+                            "Вы не смогли увернуться от волны огня"
+                            $your_health -=2
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .paw_attack
+
+                label .monster_prepares_paw:
+                    "Монстр готовится к следущей атаке"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы атаковали монстра"
+                            if character_option == 2:
+                                "Ваша водная атака нанесла значительный урон"
+                                $monster_health -= 2
+                            else:
+                                $monster_health -= 1
+                            if monster_health <=0:
+                                jump .end_fight
+                            jump .paw_attack
+                        "Защититься":
+                            jump .fire_attack
+                        "Увернуться":
+                            jump .fire_attack
+
+                label .end_fight:
+                "Вы победили"
+                hide hakutaku
+                $hide_character()
+                $in_fight = False
+                show catcharpicture at left
+
                 jump room5
 
     label room5:
@@ -662,7 +800,146 @@ label start:
             "Куда идем?"
             "Налево":
                 "*Идет налево*"
-                #сделать бой
+                #бой
+
+                hide catcharpicture
+                $show_character([middle_left()])
+                show hakutaku at middle_right:
+                    zoom 1.3
+                "Вы встретили огненного монстра. Он вас еще не заметил"
+                $in_fight = True
+                $monster_health = 3
+                $your_health = 4
+                label .fight_start:
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы атаковали монстра"
+                            if character_option == 2:
+                                "Ваша водная атака нанесла значительный урон"
+                                $monster_health -= 2
+                            else:
+                                $monster_health -= 1
+                            jump .paw_attack
+                        "Защититься":
+                            "Монстр заметил вас"
+                            jump .paw_attack
+                        "Увернуться":
+                            "Монстр заметил вас"
+                            jump .paw_attack
+
+                label .paw_attack:
+                    "Монстр замахивается своей лапой"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            if character_option == 1:
+                                "Атака топором остановила лапу и ранила чудовище"
+                                $monster_health -= 1
+                                if monster_health <=0:
+                                    jump .end_fight
+                                jump .fire_attack
+                            "Атака ранила вас"
+                            $your_health -=2
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .fire_attack
+                        "Защититься":
+                            "Атака нанесла небольшой урон"
+                            $your_health -=1
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .monster_prepares_fire
+                        "Увернуться":
+                            "Вы успешно увернулись"
+                            jump .monster_prepares_fire
+
+                label .monster_prepares_fire:
+                    "Монстр готовится к следущей атаке"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы атаковали монстра"
+                            if character_option == 2:
+                                "Ваша водная атака нанесла значительный урон"
+                                $monster_health -= 2
+                            else:
+                                $monster_health -= 1
+                            if monster_health <=0:
+                                jump .end_fight    
+                            jump .fire_attack
+                        "Защититься":
+                            jump .fire_attack
+                        "Увернуться":
+                            jump .fire_attack
+
+                label .fire_attack:
+                    "Монстр пускает в вас волну огня"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            if character_option == 3:
+                                "Атака ветром рассеяла огонь и нанесла урон"
+                                $monster_health -= 1
+                                if monster_health <=0:
+                                    jump .end_fight
+                                jump .paw_attack
+                            "Атака ранила вас"
+                            if character_option == 5:
+                                "Огонь не сильно вам вредит"
+                                $your_health -=1
+                                if your_health <=0:
+                                    "Эта атака добила вас"
+                                    jump death
+                                jump .monster_prepares_paw
+                            $your_health -=2
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .paw_attack
+                        "Защититься":
+                            "Атака нанесла небольшой урон"
+                            $your_health -=1
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .monster_prepares_paw
+                        "Увернуться":
+                            "Вы не смогли увернуться от волны огня"
+                            $your_health -=2
+                            if your_health <=0:
+                                "Эта атака добила вас"
+                                jump death
+                            jump .paw_attack
+
+                label .monster_prepares_paw:
+                    "Монстр готовится к следущей атаке"
+                    menu:
+                        "Выберите действие"
+                        "Атаковать":
+                            "Вы атаковали монстра"
+                            if character_option == 2:
+                                "Ваша водная атака нанесла значительный урон"
+                                $monster_health -= 2
+                            else:
+                                $monster_health -= 1
+                            if monster_health <=0:
+                                jump .end_fight
+                            jump .paw_attack
+                        "Защититься":
+                            jump .fire_attack
+                        "Увернуться":
+                            jump .fire_attack
+
+                label .end_fight:
+                "Вы победили"
+                hide hakutaku
+                $hide_character()
+                $in_fight = False
+                show catcharpicture at left
+
                 jump room10
 
             "Вперед":
