@@ -339,7 +339,8 @@ label start:
                 "*Идет направо*"
                 #бой
                 hide catcharpicture
-                scene dirt_cave
+                scene dirt_cave:
+                    zoom 2.5
                 $show_character([middle_left()])
                 show slime2 at middle_right
                 "Вы встретили слизня. Он ничего не делает"
@@ -372,7 +373,8 @@ label start:
             "Куда идем?"
             "Налево":
                 "С потолка на вас капает вода, но вы продолжаете идти"
-                scene water_cave
+                scene water_cave:
+                    zoom 2.5
                 "Вы оказались в подводной пещере. Дверь за вами сразу закрылась"
                 if character_option == 2:
                     $show_character([truecenter()])
@@ -610,7 +612,7 @@ label start:
     label room8:
     #отображение подсказок
     show runa at right_door
-    show runa at left_door
+    show runa at left_door                  #отображается только одна руна
     menu:
             "Кажется свернули не туда"
             "Налево":
