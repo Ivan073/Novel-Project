@@ -2,9 +2,11 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 637: expected ':' not found.
-    else
-        ^
+The label room9.fight_start is defined twice, at File "game/script.rpy", line 847:
+                label .fight_start:
+and File "game/script.rpy", line 988:
+                label .fight_start:
+
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Thu Aug 18 15:28:28 2022
+Fri Aug 19 13:10:50 2022

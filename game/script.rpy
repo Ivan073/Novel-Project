@@ -977,6 +977,13 @@ label start:
                 jump room10
 
             "Вперед":
+                #сделать бой
+                
+                jump room11
+
+            "Направо":
+                "*Идет направо*"
+                #бой
                 "Заглянув в дверь, вы быстро зашли туда, заметив какое-то движение."
                 hide catcharpicture
                 $show_character([middle_left()])
@@ -985,7 +992,7 @@ label start:
                 "Вы встретили гоблина. Он быстро к вам приближается"
                 $in_fight = True
                 $wounded = False
-                label .fight_start:
+                label .fight_start3:
                     menu:
                         "Выберите действие"
                         "Атаковать":
@@ -994,7 +1001,7 @@ label start:
                                 "Гоблин нанес смертельное ранение"
                                 jump death
                             $wounded = True
-                            jump .fight_start
+                            jump .fight_start3
                         "Защититься":
                             "Атака была не сильной и вы смогли ее блокировать, оглушив гоблина"
                             jump .goblin_staggered
@@ -1004,7 +1011,7 @@ label start:
                                 "Гоблин нанес смертельное ранение"
                                 jump death
                             $wounded = True
-                            jump .fight_start
+                            jump .fight_start3
 
                 label .goblin_staggered:
                     menu:
@@ -1013,20 +1020,15 @@ label start:
                             "Вы успели добить гоблина"
                         "Защититься":
                             "Гоблин оправился от удара"
-                            jump .fight_start
+                            jump .fight_start3
                         "Увернуться":
                             "Гоблин оправился от удара"
-                            jump .fight_start
+                            jump .fight_start3
 
                 hide goblin
                 $hide_character()
                 $in_fight = False
                 show catcharpicture at left
-                jump room11
-
-            "Направо":
-                "*Идет направо*"
-                #сделать бой
                 jump room12
 
     label room10:
@@ -1058,7 +1060,7 @@ label start:
             "Кажется выход близко"
             "Налево":
                 "На полу местами лежит песок, что хрустит под ногами с каждым шагом"
-                #сделать загадку
+                #загадка
                 scene sphinks
                 show catcharpicture at left
                 sphinx "Что за жалкие смертные пожаловали в мою обитель?"
@@ -1071,8 +1073,8 @@ label start:
                 python:
                     answer = renpy.input("Так какой цвет?")
                     answer = answer.lower()
-                    sphinx "Не верно. Теперь вы будете погребены под песком."
-                    jump death
+                sphinx "Не верно. Теперь вы будете погребены под песком."
+                jump death
 
 
             "Вперед":
