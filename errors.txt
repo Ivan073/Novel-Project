@@ -2,11 +2,9 @@
 errors listed below, and try again.
 
 
-The label room9.fight_start is defined twice, at File "game/script.rpy", line 847:
-                label .fight_start:
-and File "game/script.rpy", line 988:
-                label .fight_start:
-
+File "game/script.rpy", line 1016: expected 'label_name' not found.
+    jump jump .fight_start2
+        ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Fri Aug 19 13:10:50 2022
+Fri Aug 19 14:23:29 2022
