@@ -16,7 +16,7 @@ init python:
     in_fight = False           #эта переменная используется в screens.rpy для изменения стиля менб=ю выбора
     def show_character(pos=[]):             #функция принимает массив трансформаций которые флияют на размещение персонажа
         if character_option == 1:           #трансформации это функции
-            renpy.show("character1", pos)   #трансформации уже прописанные в renPy перечислены здесь https://www.renpy.org/doc/html/transforms.html
+             renpy.show("character1", pos)   #трансформации уже прописанные в renPy перечислены здесь https://www.renpy.org/doc/html/transforms.html
         if character_option == 2:           #если понадобится можно добавить свои кастомные функции-трансформации
             renpy.show("character2", pos)
         if character_option == 3:
@@ -44,7 +44,7 @@ init python:
                 renpy.show("torch", [topright()])
             else:
                 renpy.show("ext_torch", [topright()])
-    
+
     def hide_torch():
         if torch_lit:
             renpy.hide("torch")
@@ -454,7 +454,7 @@ label start:
 
             "Направо":
                 "На полу местами лежит песок, что хрустит под ногами с каждым шагом"
-                
+
                 scene sphinks
                 $show_torch()
                 show catcharpicture at left
@@ -812,7 +812,7 @@ label start:
                 jump death
 
             "Вперед":
-                "*Идет направо*"
+                "*Идет вперед*"
                 scene iron_lady
                 $show_torch()
                 "В этом месте вы видите две странные статуи. Неожиданно они оживают и заключают вас внутри себя."
@@ -1031,10 +1031,10 @@ label start:
                 show foxman at middle_right:
                     zoom 1.3
                 "Кто-то похожий на лиса виднеется вдалеке."
-                
+
                 $in_fight = True
                 $wounded = False
-                
+
                 label .fight_start2:
                     "В вас летит ледяной снаряд!"
                     menu:
@@ -1042,12 +1042,12 @@ label start:
                         "Атаковать":
                             if character_option == 5:
                                 "Огненная атака расплавила снаряд, но не достала противника"
-                                "Вы смогли приблизится" 
+                                "Вы смогли приблизится"
                                 jump .closer
                             if character_option == 3:
                                 "Ветер отразил снаряд, но не достал противника"
-                                "Вы смогли приблизится" 
-                                jump .closer    
+                                "Вы смогли приблизится"
+                                jump .closer
                             "Снаряд попал в вас"
                             if wounded:
                                 "Этот снаряд пробил вас насквозь"
@@ -1123,13 +1123,13 @@ label start:
                                     "Вы пытаетесь повторить маневр, но в этот раз лис был готов и откусил вам руку"
                                     "Следущая атака лиса была смертельной"
                                     jump death
-                
+
                 label .end_fight2:
                 hide foxman
                 $hide_character()
                 $in_fight = False
                 show catcharpicture at left
-                
+
                 "Вы заметили что у лиса был факел и забрали его"
                 $torch_flag = True
                 jump room11
@@ -1137,7 +1137,7 @@ label start:
             "Направо":
                 "*Идет направо*"
                 #бой
-                
+
                 "Заглянув в дверь, вы быстро зашли туда, заметив какое-то движение."
                 $hide_torch()
                 hide catcharpicture
@@ -1307,7 +1307,7 @@ label start:
                 "Странное существо выскочило на вас, а после наступила темнота."
                 jump death
 
-    label lab_exit:
+    label :
         scene Canyon
         $show_torch()
         show catcharpicture at left
