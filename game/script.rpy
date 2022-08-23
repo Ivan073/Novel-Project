@@ -11,6 +11,7 @@ define min = Character('Минос, Король Лабиринта')
 define mount = Character('Живая гора')
 
 init python:
+    torch_lit = False
     character_option = 0
     in_fight = False           #эта переменная используется в screens.rpy для изменения стиля менб=ю выбора
     def show_character(pos=[]):             #функция принимает массив трансформаций которые флияют на размещение персонажа
@@ -36,6 +37,19 @@ init python:
             renpy.hide("character4")
         if character_option == 5:
             renpy.hide("character5")
+
+    def show_torch():
+        if torch_flag:
+            if torch_lit:
+                renpy.show("torch", [topright()])
+            else:
+                renpy.show("ext_torch", [topright()])
+    
+    def hide_torch():
+        if torch_lit:
+            renpy.hide("torch")
+        else:
+            renpy.hide("ext_torch")
 
 
 transform middle_left:
@@ -232,7 +246,7 @@ label start:
 
         cat "А теперь можем выбираться отсюда."
         hide ext_torch
-        show ext_torch at topright
+        $show_torch()
         jump choice1_done
 
     label choice1_done:
@@ -253,13 +267,13 @@ label start:
                 jump cho
 
         label choic:
-            $ on_flag = True
             scene frozen_cave
-            show torch at topright
+            $torch_lit = True
+            $show_torch()
             show catcharpicture at left
             jump choi_done
         label cho:
-            $ on_flag = False
+            $show_torch()
             cat "Боишься увидеть что-то страшное? Ха!"
             jump choi_done
 
@@ -275,16 +289,12 @@ label start:
     stop music
     play music "audio/maze.mp3" fadeout 1
 
-    if torch_flag == True:
-        show ext_torch at topright
-        if on_flag == True:
-            hide ext_torch
-            show torch at topright
+    $show_torch()
     show catcharpicture at left
     cat "А чтобы выйти отсюда, придется постараться.."
     cat "Левая дверь кажется самой интересной. Может, сперва пойдем туда?"
     if torch_flag == True:
-        if on_flag == True:
+        if torch_lit == True:
             gg "Может, стоит потушить факел?"
             cat "Не нужно, он может пригодиться в этом месте. Не факт, что во всех комнатах так светло."
 
@@ -294,6 +304,7 @@ label start:
     label room1:
     #отображение подсказок
     scene frozen_maze
+    $show_torch()
     show catcharpicture at left
     show runa at left_door
     menu:
@@ -301,6 +312,7 @@ label start:
             "Налево":
                 "Шаги отдаются эхом от стен ледяной пещеры"
                 #бой
+                $hide_torch()
                 hide catcharpicture
                 scene frozen_cave
                 $show_character([middle_left()])
@@ -323,12 +335,14 @@ label start:
                 $hide_character()
                 $in_fight = False
                 scene frozen_maze
+                $show_torch()
                 show catcharpicture at left
                 jump room2
 
             "Вперед":
                 "С каждым сделанным шагом становится теплее. Что же так нагревает воздух?"
                 scene fire
+                $show_torch()
                 "За дверью разверзлось адское пламя, поглощающее все вокруг"
                 if character_option == 5:
                     $show_character([truecenter()])
@@ -339,9 +353,11 @@ label start:
             "Направо":
                 "*Идет направо*"
                 #бой
+                $hide_torch()
                 hide catcharpicture
                 scene dirt_cave:
                     zoom 2.5
+                $show_torch()
                 $show_character([middle_left()])
                 show slime2 at middle_right
                 "Вы встретили слизня. Он ничего не делает"
@@ -362,12 +378,14 @@ label start:
                 $hide_character()
                 $in_fight = False
                 scene frozen_maze
+                $show_torch()
                 show catcharpicture at left
                 jump room6
 
     label room2:
     #отображение подсказок
     scene frozen_maze
+    $show_torch()
     show catcharpicture at left
     show runa at right_door
     menu:
@@ -376,6 +394,7 @@ label start:
                 "С потолка на вас капает вода, но вы продолжаете идти"
                 scene water_cave:
                     zoom 2.5
+                $show_torch()
                 "Вы оказались в подводной пещере. Дверь за вами сразу закрылась"
                 if character_option == 2:
                     $show_character([truecenter()])
@@ -386,6 +405,7 @@ label start:
             "Вперед":
                 "Чем дальше вы продвигаетесь по пещере, тем отчетливее виднеются чьи-то тени."
                 #бой
+                $hide_torch()
                 hide catcharpicture
                 $show_character([middle_left()])
                 show goblin at middle_right:
@@ -436,6 +456,7 @@ label start:
                 "На полу местами лежит песок, что хрустит под ногами с каждым шагом"
                 
                 scene sphinks
+                $show_torch()
                 show catcharpicture at left
                 sphinx "Что за жалкие смертные пожаловали в мою обитель?"
                 cat "Мы случайно дверью ошиблись! Сейчас уже уходим.."
@@ -455,6 +476,7 @@ label start:
     label room3:
     #отображение подсказок
     scene frozen_maze
+    $show_torch()
     show catcharpicture at left
     show runa at center_door
     menu:
@@ -462,6 +484,7 @@ label start:
             "Налево":
                 "Эта дверь сразу кажется подозрительной, но вы все равно открываете ее"
                 scene snakes
+                $show_torch()
                 "В ваших глазах темнеет после множественных змеиных укусов."
                 jump death
 
@@ -470,14 +493,20 @@ label start:
                 scene gold:
                     zoom 2.4
                     xalign 0.5
+                $show_torch()
                 gg "Сокровище!"
-                #здесь получить сокровище
+                "Хотя в сундуке было много золота, единственной полезной вещью оказался факел"
+                if torch_flag:
+                    "Но он у вас уже был"
+                $torch_flag = True
                 scene frozen_maze
+                $show_torch()
                 jump room4
 
             "Направо":
                 "Из-за двери веет свежим ветром. Может, это выход?"
                 scene clouds
+                $show_torch()
                 if character_option == 3:
                     $show_character([truecenter()])
                     gg "Поток воздуха из копья надолго нас не удержит. Клара, нам стоит быстрее вернуться."
@@ -488,6 +517,7 @@ label start:
     label room4:
     #отображение подсказок
     scene frozen_maze
+    $show_torch()
     show catcharpicture at left
     show runa at right_door
     menu:
@@ -495,6 +525,7 @@ label start:
             "Налево":
                 "Кажется, за дверью слышится карканье воронов."
                 scene put_stone
+                $show_torch()
                 show catcharpicture at left
                 cat "Как думаешь, в какую сторону нам повернуть?"
                 menu:
@@ -507,13 +538,14 @@ label start:
             "Вперед":
                 "За дверью оказывается лесная поляна. Неужели это выход?"
                 scene pit
+                $show_torch()
                 "Вы угодили в волчью яму."
                 jump death
 
             "Направо":
                 "*Идет направо*"
                 #бой
-
+                $hide_torch()
                 hide catcharpicture
                 $show_character([middle_left()])
                 show hakutaku at middle_right:
@@ -683,8 +715,10 @@ label start:
                 scene gold:
                     zoom 2.4
                     xalign 0.5
+                $show_torch()
                 gg "Сокровище!"
                 scene frozen_cave
+                $show_torch()
                 show mimic at truecenter:
                     zoom 4.0
                 gg "Это еще что за существо?!"
@@ -693,6 +727,7 @@ label start:
             "Направо":
                 "Вы слышите тихое поскрипывание, раздающееся словно от старого дерева."
                 scene roots
+                $show_torch()
                 if character_option == 1:
                     $show_character([truecenter()])
                     gg "Топором можно разрубать корни, но долго мне не продержаться. Нужно убираться отсюда."
@@ -708,12 +743,14 @@ label start:
             "Налево":
                 "Постепенно вы начинаете ступать по песку."
                 scene zsand
+                $show_torch()
                 "Вы задохнулись в зыбучих песках."
                 jump death
 
             "Вперед":
                 "За дверью свистит ветер и слышен негромкий стук перекатывающихся камней."
                 scene live_mountain
+                $show_torch()
                 mount "Ого! Путники! А разгадайте-ка мою загадку!"
                 mount "Ввысь идет, но не растет. На деревья сверху взирает, но корни свои скрывает."
             #ответ: гора
@@ -734,6 +771,7 @@ label start:
             "Направо":
                 "Вы чувствуете паутину, попадающую вам на лицо."
                 scene spider
+                $show_torch()
                 "Вы умерли от укуса ядовитого паука."
                 jump death
 
@@ -747,6 +785,7 @@ label start:
             "Налево":
                 "*Идет налево*"
                 #бой
+                $hide_torch()
                 hide catcharpicture
                 $show_character([middle_left()])
                 show hakutaku at middle_right:
@@ -775,12 +814,14 @@ label start:
             "Вперед":
                 "*Идет направо*"
                 scene iron_lady
+                $show_torch()
                 "В этом месте вы видите две странные статуи. Неожиданно они оживают и заключают вас внутри себя."
                 jump death
 
             "Направо":
                 "Кажется, за дверью слышно пение птиц."
                 scene Jungle
+                $show_torch()
                 "Вы заблудились в джунглях и умерли от жажды."
                 jump death
 
@@ -795,8 +836,10 @@ label start:
                 scene gold:
                     zoom 2.4
                     xalign 0.5
+                $show_torch()
                 gg "Мы нашли сокровище!"
                 scene frozen_cave
+                $show_torch()
                 show mimic at truecenter:
                     zoom 4.0
                 gg "Монстр?!"
@@ -805,6 +848,7 @@ label start:
             "Вперед":
                 "За дверью свистит ветер и слышен негромкий стук перекатывающихся камней."
                 scene live_mountain
+                $show_torch()
                 mount "Ого! Путники! А разгадайте-ка мою загадку!"
                 mount "Кто новым может быть и старым; кто может и расти и убывать; кто полон может быть, но не бывает пуст, кто виден лишь когда почти у всех глаза закрыты?"
             #ответ: луна
@@ -814,6 +858,7 @@ label start:
                 if answer == "луна":
                     mount "Как вы так легко отгадали?? Ладно, проходите."
                     scene frozen_maze
+                    $show_torch()
                     jump room9
                 else:
                     mount "Ха-ха-ха-ха!!"
@@ -825,6 +870,7 @@ label start:
             "Направо":
                 "За дверью слышится утробное бульканье."
                 scene lava
+                $show_torch()
                 "Вы решили поплавать в лаве."
                 jump death
 
@@ -836,7 +882,7 @@ label start:
             "Налево":
                 "Вы стараетесь тихо прокрасться в нужную вам дверь."
                 #бой
-
+                $hide_torch()
                 hide catcharpicture
                 $show_character([middle_left()])
                 show hakutaku at middle_right:
@@ -978,8 +1024,8 @@ label start:
                 jump room10
 
             "Вперед":
-                #сделать бой
-
+                #бой
+                $hide_torch()
                 hide catcharpicture
                 $show_character([middle_left()])
                 show foxman at middle_right:
@@ -1084,12 +1130,16 @@ label start:
                 $in_fight = False
                 show catcharpicture at left
                 
+                "Вы заметили что у лиса был факел и забрали его"
+                $torch_flag = True
                 jump room11
 
             "Направо":
                 "*Идет направо*"
                 #бой
+                
                 "Заглянув в дверь, вы быстро зашли туда, заметив какое-то движение."
+                $hide_torch()
                 hide catcharpicture
                 $show_character([middle_left()])
                 show goblin at middle_right:
@@ -1143,18 +1193,21 @@ label start:
             "Налево":
                 "С каждым шагом вы чувствуете, что что-то не так."
                 scene wp
+                $show_torch()
                 "Вы стали жертвой жестоких правил игры."
                 jump death
 
             "Вперед":
                 "Вы слышите подозрительное шипение."
                 scene boom
+                $show_torch()
                 "Вы были взорваны зельем."
                 jump death
 
             "Направо":
                 "За дверью слышится утробное бульканье."
                 scene lava
+                $show_torch()
                 "Вы решили поплавать в лаве."
                 jump death
 
@@ -1167,6 +1220,7 @@ label start:
                 "На полу местами лежит песок, что хрустит под ногами с каждым шагом"
                 #загадка
                 scene sphinks
+                $show_torch()
                 show catcharpicture at left
                 sphinx "Что за жалкие смертные пожаловали в мою обитель?"
                 cat "Мы случайно дверью ошиблись! Сейчас уже уходим.."
@@ -1202,6 +1256,7 @@ label start:
             "Направо":
                 "Кажется, за дверью слышно пение птиц."
                 scene Jungle
+                $show_torch()
                 "Вы заблудились в джунглях и умерли от жажды."
                 jump death
 
@@ -1212,12 +1267,14 @@ label start:
             "Налево":
                 "За дверью слышится утробное бульканье."
                 scene lava
+                $show_torch()
                 "Вы решили поплавать в лаве."
                 jump death
 
             "Вперед":
                 "Вы слышите грохот."
                 scene dark
+                $show_torch()
                 "На вас обвалился потолок."
                 jump death
 
@@ -1240,6 +1297,7 @@ label start:
             "Вперед":
                 "С каждым шагом вы чувствуете, что что-то не так."
                 scene wp
+                $show_torch()
                 "Вы стали жертвой жестоких правил игры."
                 jump death
 
@@ -1251,6 +1309,7 @@ label start:
 
     label lab_exit:
         scene Canyon
+        $show_torch()
         show catcharpicture at left
         cat "Наконец-то мы выбрались! Ура!"
 
