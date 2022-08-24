@@ -1376,6 +1376,12 @@ label start:
 
     #миниигра рыбалка
     "Рыбалка"
+    "Нажмите ENTER чтобы пропустить"
+    show screen Fish_Up
+    call screen MiniGameFish
+label end_fishing:
+
+
     #миниигра карты
     
     $show_character()
