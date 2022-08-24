@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 815: expected statement.
-    "*Идет вперед*"Ы
-                    ^
+File "game/script.rpy", line 1310: expected 'label_name_declare' not found.
+    label :
+         ^
 
-Ren'Py Version: Ren'Py 8.0.2.22081402
-Tue Aug 23 21:20:26 2022
+Ren'Py Version: Ren'Py 7.4.11.2266
+Wed Aug 24 02:29:17 2022
