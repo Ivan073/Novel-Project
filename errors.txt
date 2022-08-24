@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1310: expected 'label_name_declare' not found.
-    label :
-         ^
+File "game/script.rpy", line 1322: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation.
+    $hide_torch()
+    ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Wed Aug 24 02:29:17 2022
+Wed Aug 24 14:26:27 2022
