@@ -1,52 +1,44 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 1381, in script
-    call screen MiniGameFish
-  File "renpy/common/000statements.rpy", line 569, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-AttributeError: 'module' object has no attribute 'K_ENTER'
+After initialization, but before game start.
+  File "game/fishing_mg.rpy", line 31, in prepare_screen
+    screen MiniGameFish:
+  File "game/fishing_mg.rpy", line 31, in prepare
+    screen MiniGameFish:
+  File "game/fishing_mg.rpy", line 60, in prepare
+    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
+  File "game/fishing_mg.rpy", line 60, in prepare
+    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
+SyntaxError: non-keyword arg after keyword arg (fishing_mg.rpy, line 60)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1381, in script
-    call screen MiniGameFish
-  File "renpy/ast.py", line 2015, in execute
-    self.call("execute")
-  File "renpy/ast.py", line 2003, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "renpy/statements.py", line 278, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 569, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-  File "renpy/exports.py", line 3136, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "renpy/ui.py", line 298, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "renpy/display/core.py", line 3325, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, **kwargs)
-  File "renpy/display/core.py", line 4160, in interact_core
-    rv = root_widget.event(ev, x, y, 0)
-  File "renpy/display/layout.py", line 1102, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "renpy/display/layout.py", line 1102, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "renpy/display/layout.py", line 1102, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "renpy/display/screen.py", line 727, in event
-    rv = self.child.event(ev, x, y, st)
-  File "renpy/display/layout.py", line 1102, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "renpy/display/behavior.py", line 469, in event
-    if map_event(ev, name):
-  File "renpy/display/behavior.py", line 233, in map_event
-    check_code = eval("lambda ev : " + compile_event(keysym, True), globals())
-  File "renpy/display/behavior.py", line 153, in compile_event
-    rv += " and ev.key == %d)" % (getattr(pygame.constants, key))
-AttributeError: 'module' object has no attribute 'K_ENTER'
+  File "renpy/bootstrap.py", line 331, in bootstrap
+    renpy.main.main()
+  File "renpy/main.py", line 662, in main
+    run(restart)
+  File "renpy/main.py", line 97, in run
+    renpy.display.screen.prepare_screens()
+  File "renpy/display/screen.py", line 955, in prepare_screens
+    s.ast.prepare_screen()
+  File "game/fishing_mg.rpy", line 31, in prepare_screen
+    screen MiniGameFish:
+  File "game/fishing_mg.rpy", line 31, in prepare
+    screen MiniGameFish:
+  File "game/fishing_mg.rpy", line 60, in prepare
+    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
+  File "game/fishing_mg.rpy", line 60, in prepare
+    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
+  File "renpy/pyanalysis.py", line 714, in ast_eval
+    return self.ast_eval_literal(expr)[0]
+  File "renpy/pyanalysis.py", line 696, in ast_eval_literal
+    expr = py_compile(expr, 'eval', ast_node=True)
+  File "renpy/python.py", line 835, in py_compile
+    raise e
+SyntaxError: non-keyword arg after keyword arg (fishing_mg.rpy, line 60)
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Wed Aug 24 16:37:33 2022
+Thu Aug 25 15:30:51 2022

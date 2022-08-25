@@ -1,7 +1,14 @@
 ﻿init 15:
-    $cursor_pos = 100
-    $fish_pos = renpy.random.randint(50,150)
+    $cursor_pos = 500
+    $fish_pos = renpy.random.randint(300,700)
+    $progress = 300
+    $fish_speed = renpy.random.random()*1.6-0.8
 init -5 python:
+    style.ProgressBar = Style(style.default)
+    style.ProgressBar.left_bar = Solid("#fc2803")
+    style.ProgressBar.xmaximum = 800
+    style.ProgressBar.ymaximum = 15
+
     style.FishingBar = Style(style.default)
     style.FishingBar.left_bar = Solid("#46eb34")
     style.FishingBar.right_bar = Solid("#46eb34")
@@ -9,45 +16,54 @@ init -5 python:
     style.FishingBar.thumb_offset = 25
     style.FishingBar.left_gutter = 25
     style.FishingBar.right_gutter = 25
-    style.FishingBar.xmaximum = 700
-    style.FishingBar.ymaximum = 40
+    style.FishingBar.xmaximum = 800
+    style.FishingBar.ymaximum = 50
 
     style.FishBar = Style(style.default)
-    style.FishBar.thumb = Solid("#fcfc00")      #деление пекрывает курсор
-    #style.FishBar.thumb = HBox(Solid("#fcfc00"),Solid("#fff"),Solid("#fcfc00"))
-    style.FishBar.thumb_offset = 50
-    style.FishBar.xmaximum = 700
-    style.FishBar.ymaximum = 40
+    style.FishBar.thumb = HBox(Solid("#fcfc00",xsize=3),Null(width=150),Solid("#fcfc00",xsize=3))
+    style.FishBar.thumb_offset = 0
+    style.FishBar.xmaximum = 800
+    style.FishBar.ymaximum = 50
 
 
 
 screen MiniGameFish:
     
-    #значения могут уходить за пределы шкалы
-    key [ 'K_LEFT', 'repeat_K_LEFT' ] action [SetVariable("cursor_pos", cursor_pos - 2)]
-    key [ 'K_RIGHT', 'repeat_K_RIGHT' ] action [SetVariable("cursor_pos", cursor_pos + 2)]
+    key [ 'K_LEFT', 'repeat_K_LEFT' ] action If(cursor_pos > 0, true=SetVariable("cursor_pos", cursor_pos - 10))
+    key [ 'K_RIGHT', 'repeat_K_RIGHT' ] action If(cursor_pos < 1000, true=SetVariable("cursor_pos", cursor_pos + 10))
     key 'K_RETURN' action [Jump("YouWin")]
 
     bar:
+        style "ProgressBar"
+        range 1000
+        value progress
+        align(0.5,0.67)
+
+    bar:
         style "FishingBar"
-        range 200
+        range 1000
         value cursor_pos
         align(0.5,0.7)
 
     bar:
         style "FishBar"
-        range 200
+        range 1000
         value fish_pos
         align(0.5,0.7)
 
-screen Fish_Up:
-    timer 0.02 repeat True action SetVariable("fish_pos", fish_pos + renpy.random.randint(-1,1))    #курсор просто хаотично изменяется, а не движется
+    timer 0.02 repeat True action If(fish_pos + fish_speed<1000 and fish_pos + fish_speed>0, true=SetVariable("fish_pos", fish_pos + fish_speed))    #положение рыбы меняется
+    timer 1 repeat True action SetVariable("fish_speed", renpy.random.random()*16-8) #скорость рыбы меняется
+    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos-50)< 80, true=SetVariable("progress", progress + 1), false=SetVariable("progress", progress - 1))
+    #кривая регистрация прогресса
+    if progress<=0:
+        timer 0.01 action Jump("fishing_lose")
+    if progress >=1000:
+        timer 0.01 action Jump("fishing_win")
 
-
-label YouLose:
+label fishing_lose:
     "Lose"
     jump end_fishing
 
-label YouWin:
+label fishing_win:
     "Win"
     jump end_fishing
