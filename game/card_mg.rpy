@@ -16,9 +16,16 @@
                             background '#0084ff'
                         if card ["value"] == 'Y':
                             background '#ffff00'
-                        if card ["value"] == 'W':
-                            background '#ffffff'            #цвет будет меняться
-                            
+                        if card ["value"] == 'W':                               #цвета у двух карт должны быть разными
+                            #background '#ffffff'
+                            if current_wild == 'R':
+                                background '#ff0000'
+                            if current_wild == 'G':
+                                background '#1aff00'
+                            if current_wild == 'B':
+                                background '#0084ff'
+                            if current_wild == 'Y':
+                                background '#ffff00'
 
                     else:
                         background '#fac984'
@@ -62,13 +69,14 @@ label CardGame:
             jump .game_cycle
         $can_click = False
         $renpy.pause (0.3, hard = True)
-        python:
-            if open_cards [0] ["value"] == open_cards [1] ["value"] and open_cards [0] ["value"] != 'W':
-                open_cards [0] ["value"] = 'empty'
-                open_cards [1] ["value"] = 'empty'
-            open_cards [0] ["chosen"] = False
-            open_cards [1] ["chosen"] = False
-            open_cards.clear()
+        if len(open_cards) == 2:
+            python:
+                if open_cards [0] ["value"] == open_cards [1] ["value"] and open_cards [0] ["value"] != 'W':
+                    open_cards [0] ["value"] = 'empty'
+                    open_cards [1] ["value"] = 'empty'
+                open_cards [0] ["chosen"] = False
+                open_cards [1] ["chosen"] = False
+                open_cards.clear()
         #здесь будет условие завершения игры
         jump .game_cycle
     #hide screen CardScreen
