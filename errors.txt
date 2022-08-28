@@ -2,21 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/card_mg.rpy", line 54: expected statement.
-    current_wild = 'R'
-                 ^
-
-File "game/card_mg.rpy", line 56: expected statement.
-    current_wild = 'G'
-                 ^
-
-File "game/card_mg.rpy", line 58: expected statement.
-    current_wild = 'Y'
-                 ^
-
-File "game/card_mg.rpy", line 60: expected statement.
-    current_wild = 'B' 
-                 ^
+File "game/card_mg.rpy", line 61: invalid syntax
+    turns--
+    
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Sun Aug 28 21:39:37 2022
+Sun Aug 28 23:51:59 2022

@@ -1491,10 +1491,13 @@ label start:
 
     #миниигра карты
     "Карточная игра"
+    label card_game:
     window hide
     scene black
     call CardGame
     window show
+    scene forest1
+    "Вы победили!"
 
     #после квеста на питомца
     $show_torch()
