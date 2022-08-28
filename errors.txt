@@ -2,10 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1501: invalid syntax
-    $petname = renpy.input(u"Дайте имя своему фамильяру.")
-     ^
-    
+File "game/script.rpy", line 1426: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation.
+    menu:
+    ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Sun Aug 28 16:12:35 2022
+Sun Aug 28 18:19:30 2022
