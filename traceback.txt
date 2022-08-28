@@ -1,44 +1,32 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-  File "game/fishing_mg.rpy", line 31, in prepare_screen
-    screen MiniGameFish:
-  File "game/fishing_mg.rpy", line 31, in prepare
-    screen MiniGameFish:
-  File "game/fishing_mg.rpy", line 60, in prepare
-    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
-  File "game/fishing_mg.rpy", line 60, in prepare
-    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
-SyntaxError: non-keyword arg after keyword arg (fishing_mg.rpy, line 60)
+While running game code:
+  File "game/script.rpy", line 1496, in script call
+    call CardGame
+  File "game/card_mg.rpy", line 28, in script
+    python:
+  File "game/card_mg.rpy", line 36, in <module>
+    card_values.insert('empty')
+TypeError: insert() takes exactly 2 arguments (1 given)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "renpy/bootstrap.py", line 331, in bootstrap
-    renpy.main.main()
-  File "renpy/main.py", line 662, in main
-    run(restart)
-  File "renpy/main.py", line 97, in run
-    renpy.display.screen.prepare_screens()
-  File "renpy/display/screen.py", line 955, in prepare_screens
-    s.ast.prepare_screen()
-  File "game/fishing_mg.rpy", line 31, in prepare_screen
-    screen MiniGameFish:
-  File "game/fishing_mg.rpy", line 31, in prepare
-    screen MiniGameFish:
-  File "game/fishing_mg.rpy", line 60, in prepare
-    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
-  File "game/fishing_mg.rpy", line 60, in prepare
-    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 100, true=SetVariable("progress", progress + fish_speed), false)
-  File "renpy/pyanalysis.py", line 714, in ast_eval
-    return self.ast_eval_literal(expr)[0]
-  File "renpy/pyanalysis.py", line 696, in ast_eval_literal
-    expr = py_compile(expr, 'eval', ast_node=True)
-  File "renpy/python.py", line 835, in py_compile
-    raise e
-SyntaxError: non-keyword arg after keyword arg (fishing_mg.rpy, line 60)
+  File "game/script.rpy", line 1496, in script call
+    call CardGame
+  File "game/card_mg.rpy", line 28, in script
+    python:
+  File "renpy/ast.py", line 928, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "renpy/python.py", line 2245, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/card_mg.rpy", line 36, in <module>
+    card_values.insert('empty')
+  File "renpy/python.py", line 875, in do_mutation
+    return method(self, *args, **kwargs)
+TypeError: insert() takes exactly 2 arguments (1 given)
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Thu Aug 25 15:30:51 2022
+Sun Aug 28 21:07:27 2022

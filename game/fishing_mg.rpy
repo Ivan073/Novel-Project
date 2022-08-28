@@ -1,9 +1,9 @@
-﻿init 15:
+﻿init:
     $cursor_pos = 500
     $fish_pos = renpy.random.randint(300,700)
     $progress = 200
     $fish_speed = renpy.random.random()*1.6-0.8
-init -5 python:
+init python:
     style.ProgressBar = Style(style.default)
     style.ProgressBar.left_bar = Solid("#fc2803")
     style.ProgressBar.xmaximum = 800
@@ -31,7 +31,7 @@ screen Fishing:
     
     key [ 'K_LEFT', 'repeat_K_LEFT' ] action If(cursor_pos > 0, true=SetVariable("cursor_pos", cursor_pos - 10))
     key [ 'K_RIGHT', 'repeat_K_RIGHT' ] action If(cursor_pos < 1000, true=SetVariable("cursor_pos", cursor_pos + 10))
-    key 'K_RETURN' action [Jump("YouWin")]
+    key 'K_RETURN' action [Jump("fishing_win")]
 
     bar:
         style "ProgressBar"
