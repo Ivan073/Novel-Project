@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1426: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation.
-    menu:
-    ^
+File "game/fishing_mg.rpy", line 64: expected statement.
+    Hide("Fishing")
+                   ^
+
+File "game/fishing_mg.rpy", line 69: expected statement.
+    Hide("Fishing")
+                   ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Sun Aug 28 18:19:30 2022
+Sun Aug 28 18:55:13 2022

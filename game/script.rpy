@@ -1482,9 +1482,10 @@ label start:
     #миниигра-квест на получение фамильяра (варианты: phoenix, rigen, whitewolf,unicorn)
 
     #миниигра рыбалка
+    label fishing:
     "Рыбалка"
     "Нажмите ENTER чтобы пропустить"
-    call screen MiniGameFish
+    call screen Fishing
     label end_fishing:
 
 
