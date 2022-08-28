@@ -2,9 +2,10 @@
 errors listed below, and try again.
 
 
-File "game/fishing_mg.rpy", line 59: u'action' is not a keyword argument or valid child for the screen statement.
-    action Jump("fishing_lose")
-          ^
+File "game/script.rpy", line 1501: invalid syntax
+    $petname = renpy.input(u"Дайте имя своему фамильяру.")
+     ^
+    
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Thu Aug 25 15:40:03 2022
+Sun Aug 28 16:12:35 2022
