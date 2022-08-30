@@ -43,7 +43,7 @@ label CardGame:
                 card_list.append ({"value": card_values[i], "chosen": False})
 
     show screen CardScreen
-   
+
     label .game_cycle:
         $can_click = True
         if len(open_cards) <2:
@@ -90,9 +90,16 @@ label CardGame:
     label .win:
         hide screen CardScreen
         return
-    
+
     label .lose:
         window show
         "Вы проиграли. Попробуйте еще раз"
+        menu:
+            "Вы хотите увидеть подсказку?"
+            "Да":
+                "Три карты имеют случайный цвет и не участвуют в парах."
+            "Нет":
+                "Тогда просто пробуйте снова."
+
         jump card_game
         return
