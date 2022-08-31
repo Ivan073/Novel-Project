@@ -13,6 +13,7 @@ define mark = Character('Маркус')
 define pet = Character('[petname]')
 
 init python:
+    pet_choise = 0
     torch_lit = False
     character_option = 0
     in_fight = False           #эта переменная используется в screens.rpy для изменения стиля менб=ю выбора
@@ -53,6 +54,25 @@ init python:
         else:
             renpy.hide("ext_torch")
 
+    def show_pet(pos[]):
+        if pet_choise == 1:
+             renpy.show("whitewolf", pos)
+        if pet_choise == 2:
+            renpy.show("phoenix", pos)
+        if pet_choise == 3:
+            renpy.show("unicorn", pos)
+        if pet_choise == 4:
+            renpy.show("rigen", pos)
+
+    def hide_pet():
+        if pet_choise == 1:
+            renpy.hide("whitewolf")
+        if pet_choise == 2:
+            renpy.hide("phoenix")
+        if pet_choise == 3:
+            renpy.hide("unicorn")
+        if pet_choise == 4:
+            renpy.hide("rigen")
 
 transform middle_left:
     xalign 0.0
@@ -1550,6 +1570,7 @@ label start:
 
 
     "Вы заходите дальше в лес, постепенно становится все темнее."
+    gg "Кажется, пора зажечь факел."
     $hide_torch()
     $torch_lit = True
     $show_torch()
@@ -1566,7 +1587,7 @@ label start:
     cat "А что это там? За надгробиями!"
     #бой в рамках квеста с zombie и/или werewolf
 
-    "На вас нападает зомби"
+    "Из-за каменной плиты выходит зомби."
     label zombie_fight:
         $in_fight = True
         $hide_torch()
@@ -1577,6 +1598,7 @@ label start:
         $zombie_health = 4
         if character_option == 4:
             "C помощью своей темной магии вы смогли подчинить зомби и упокоить его"
+            $whitewolf_choise += 1
             jump .end_fight
         label .fight_start:
             "Зомби медленно прибижается к вам"
@@ -1585,13 +1607,14 @@ label start:
                 "Атаковать":
                     if character_option == 5:
                         "Огонь сжигает зомби и он очень быстро погибает"
+                        $phoenix_choise += 1
                         jump .fight_end
                     $zombie_health-=1
                     if zombie_health<=0:
                         "Зомби наконец умирает окончательно"
                         jump .fight_end
                     "Вы раните зомби, но он похоже не обращает внимания на раны и хватает вас"
-                    
+
                     jump .zombie_close
                 "Защититься":
                     "Зомби пытается отгрызть вам руку!"
@@ -1611,6 +1634,7 @@ label start:
                 "Атаковать":
                     if character_option == 1:
                         "Вы отрубаете голову зомби. Слепого зомби вы добили без проблем"
+                        $unicorn_choise += 1
                         jump .fight_end
                     elif character_option == 3:
                         "Атака ветром отбрасывает зомби далеко"
@@ -1620,7 +1644,7 @@ label start:
                         $zombie_health-=1
                         "Ваша атака отбрасывает зомби"
                         jump .fight_start
-                   
+
                 "Защититься":
                     "У вас не получилось защититься в захвате. Зомби вызвал у вас смертельное кровотечение из артерии"
                     jump death
@@ -1628,7 +1652,7 @@ label start:
                     "Вы вырвались из захвата зомби, но он успел значительно вас ранить"
                     $your_health-=2
                     if your_health<=0:
-                        "Накопившиеся раны не дали вам продолжить бой"
+                        "Получив слишком много ранений, вы истекли кровью."
                         jump death
                     jump .fight_start
 
@@ -1655,9 +1679,10 @@ label start:
                     jump .fight_start
                 "Бежать":                                                   #вариант с побегом, можно использовать чтобы увеличить очки какого-нибудь питомца
                     "Зомби был очень меделенным и вы смогли от него убежать"
+                    $rigen_choise += 1
                     jump .fight_start
         label .fight_end:
-            hide goblin
+            hide zombie
             $hide_character()
             $in_fight = False
 
@@ -1665,7 +1690,7 @@ label start:
     $hide_torch()
     $torch_lit = False
     $show_torch()
-    "Вы погасили факел"
+    "Вы погасили факел, возвращаясь в освещенную часть леса."
 
     #последняя часть - загадки
     scene forest1
@@ -1676,19 +1701,94 @@ label start:
     mark "Вы быстро вернулись. Со всем справились?"
     gg "Да"
     cat "Это было не так уж и сложно!"
-    mark "Вот как? В любом случае, ваш ждет еще один тест, последний."
+    mark "Вот как? В любом случае, вас ждет еще один тест, последний."
     mark "Вы должны будете ответить на мои вопросы и от них будет зависеть, получите ли вы себе союзника."
     cat "Не тяни! Лучше сразу задавай! Мы справимся."
     #сами загадки Ответ: Солнце. Ответ: Смерть. Ответ: Колибри. Ответ:человек.
     mark "Без отдыха, без сна, беззвучным шагом с холма на холм кто движется не спеша, кто холод прогнать пришел?"
-    mark "Прячься в тени иль при свете дня: время придет - ты встретишь меня. Я уловлю малейший вздох, тебя обхитрю, застану врасплох."
-    mark "Мала как песчинка, лечу как пушинка. Сначала услышишь, потом лишь заметишь."
-    mark "Что за существо ходит на четырех ногах утром, на двух днем и на трех вечером?"
+    menu:
+        "Каков будет ваш ответ?"
+        "Шаровая молния":
+            mark "Сомнительный ответ..."
+            $unicorn_choise += 1
+            jump rid_2
+        "Солнце":
+            mark "Верно, теперь следующая загадка."
+            $phoenix_choise += 1
+            jump rid_2
+        "Огонь":
+            mark "Кажется, эта загадка у вас не удалась."
+            $rigen_choise += 1
+            jump rid_2
+    label rid_2:
+        mark "Прячься в тени иль при свете дня: время придет - ты встретишь меня. Я уловлю малейший вздох, тебя обхитрю, застану врасплох."
+        menu:
+            "Как думаете, что это?"
+            "Смерть":
+                mark "Вы правы. Мрачноватые загадки хорошо вам даются.."
+                $whitewolf_choise += 1
+                jump rid_3
+            "Болезнь":
+                mark "Это неверный ответ."
+                $rigen_choise += 1
+                jump rid_3
+            "Страх":
+                mark "Видимо, загадка оказалась слишком сложной.."
+                $whitewolf_choise += 1
+                jump rid_3
+    label rid_3:
+        mark "Мала как песчинка, лечу как пушинка. Сначала услышишь, потом лишь заметишь."
+        menu:
+            "Каков правильный ответ на ваш взгляд?"
+            "Комар":
+                mark "Вы правы. Мрачноватые загадки хорошо вам даются.."
+                $phoenix_choise += 1
+                jump rid_4
+            "Колибри":
+                mark "Да, именно эта милая птичка.."
+                $unicorn_choise += 1
+                jump rid_4
+            "Мошка":
+                mark "Видимо, загадка оказалась слишком сложной.."
+                $rigen_choise += 1
+                jump rid_4
+    label rid4:
+        mark "Что за существо ходит на четырех ногах утром, на двух днем и на трех вечером?"
+        menu:
+            "Что вы думаете?"
+            "Гоблин":
+                mark "Гоблины редко доживают до старости... Вы не правы."
+                $whitewolf_choise += 1
+                jump rid_end
+            "Куропатка":
+                mark "Странный выбор. И он неверный."
+                $unicorn_choise += 1
+                jump rid_end
+            "Человек":
+                mark "Это верный ответ."
+                $rigen_choise += 1
+                jump rid_end
+    label rid_end:
+        mark "Что же, все испытания закончены. А это значит, что сейчас к вам выйдет то существо, что сочтет вас достойным."
+        cat "Интригующе!"
+        if ($whitewolf_choise > $phoenix_choise) and ($whitewolf_choise > $unicorn_choise) and ($whitewolf_choise > $rigen_choise):
+            $pet_choise = 1 #whitewolf
+
+        if ($phoenix_choise > $whitewolf_choise) and ($phoenix_choise > $unicorn_choise) and ($phoenix_choise > $rigen_choise):
+            $pet_choise = 2 #phoenix
+
+        if ($unicorn_choise > $whitewolf_choise) and ($unicorn_choise > $phoenix_choise) and ($unicorn_choise > $rigen_choise):
+            $pet_choise = 3 #unicorn
+
+        else:
+            $pet_choise = 4 #rigen
+
 
     #после квеста на питомца
+    scene forest1
     $show_torch()
     show catcharpicture at left
-    show markus at truecenter
+    show markus at middle_right
     mark "Поздравляю, теперь у вас есть новый друг. Он сможет помочь вам в дальнейших странствиях."
     mark "Правда, вам придется дать ему имя. Обычным лесным жителям они ни к чему."
     mark "Уже придумали, как назовете?"
@@ -1702,21 +1802,35 @@ label start:
 
     #в зависимости от попавшегося питомца будут разные поиски огра
 
-    label pet_rigen:
-        pet "У меня очень чуткий слух."
-        pet "Я слышу грузные шаги этого существа за много миль."
+    if $pet_choise == 1:
+        jump pet_whitewolf
+    if $pet_choise == 2:
+        jump pet_phoenix
+    if $pet_choise == 3:
+        jump pet_unicorn
+    if $pet_choise == 4:
+        jump pet_rigen
 
     label pet_whitewolf:
+        $show_pet([middle_left()])
         pet "У меня очень чуткий нюх."
         pet "Я чую след этого огра, еще не прошло так много времени, чтобы запах пропал."
 
     label pet_phoenix:
+        $show_pet([middle_left()])
         pet "У меня зоркий взгляд, однако ветви и листва деревьев мешают мне увидеть огра."
         pet "В лесу я бессилен, но если придется поискать кого-то в поле или в горах, то с этим я легко справлюсь."
 
     label pet_unicorn:
+        $show_pet([middle_left()])
         pet "Я не обладаю навыками для поиска существ, однако умею быстро бегать."
         pet "Мы быстро догоним огра, если сумеем понять, где он."
+
+    label pet_rigen:
+        $show_pet([middle_left()])
+        pet "У меня очень чуткий слух."
+        pet "Я слышу грузные шаги этого существа за много миль."
+
 
 
 
