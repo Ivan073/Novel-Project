@@ -1496,19 +1496,19 @@ label start:
         sys "Для управления используйте стрелочки <- ->"
         call screen Fishing
     label end_fishing:
-        if death_count == 0:
+        if fishing_fails == 0:
             show one at truecenter
             gg "Кажется, мы словили гуппи..!"
             $whitewolf_choise += 1
-        if death_count == 1:
+        if fishing_fails == 1:
             show two at truecenter
             gg "Кажется, мы словили золотую рыбку!"
             $phoenix_choise += 1
-        if death_count == 2:
+        if fishing_fails == 2:
             show three at truecenter
             gg "Кажется, мы словили... Рыбу-клоуна?"
             $rigen_choise += 1
-        if death_count >= 3:
+        if fishing_fails >= 3:
             show four at truecenter
             gg "Кажется, мы словили... очень красивую полупрозрачную рыбку!"
             $unicorn_choise += 1
@@ -1522,10 +1522,13 @@ label start:
 
     #миниигра карты
     "Карточная игра"
+    $card_firstwin=True
     label card_game:
     window hide
     scene black
-    call CardGame
+    jump CardGame
+
+    label card_game_end:
     window show
     scene forest1
     "Вы победили!"
@@ -1536,7 +1539,7 @@ label start:
     if card_firstwin:
         $whitewolf_choise += 1
         $unicorn_choise += 1
-    if card_lose:
+    else:
         $phoenix_choise += 1
         $rigen_choise += 1
 

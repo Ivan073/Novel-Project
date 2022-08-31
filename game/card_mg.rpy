@@ -89,9 +89,10 @@ label CardGame:
 
     label .win:
         hide screen CardScreen
-        return
+        jump card_game_end
 
     label .lose:
+        $card_firstwin=False
         window show
         "Вы проиграли. Попробуйте еще раз"
         menu:
@@ -100,6 +101,5 @@ label CardGame:
                 "Три карты имеют случайный цвет и не участвуют в парах."
             "Нет":
                 "Тогда просто пробуйте снова."
-
+        hide screen CardScreen
         jump card_game
-        return

@@ -1,30 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1496, in script call
-    call CardGame
-  File "game/card_mg.rpy", line 62, in script
-    python:
-  File "game/card_mg.rpy", line 65, in <module>
-    if open_cards [0] ["value"][1] == 'W':
-IndexError: string index out of range
+  File "game/script.rpy", line 1502, in script
+    $whitewolf_choise += 1
+  File "game/script.rpy", line 1502, in <module>
+    $whitewolf_choise += 1
+NameError: name 'whitewolf_choise' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1496, in script call
-    call CardGame
-  File "game/card_mg.rpy", line 62, in script
-    python:
+  File "game/script.rpy", line 1502, in script
+    $whitewolf_choise += 1
   File "renpy/ast.py", line 928, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "renpy/python.py", line 2245, in py_exec_bytecode
     exec(bytecode, globals, locals)
-  File "game/card_mg.rpy", line 65, in <module>
-    if open_cards [0] ["value"][1] == 'W':
-IndexError: string index out of range
+  File "game/script.rpy", line 1502, in <module>
+    $whitewolf_choise += 1
+NameError: name 'whitewolf_choise' is not defined
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Sun Aug 28 23:45:22 2022
+Wed Aug 31 16:19:27 2022

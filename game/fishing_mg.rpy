@@ -3,6 +3,7 @@
     $fish_pos = renpy.random.randint(300,700)
     $progress = 200
     $fish_speed = renpy.random.random()*1.6-0.8
+    $fishing_fails = 0
 init python:
     style.ProgressBar = Style(style.default)
     style.ProgressBar.left_bar = Solid("#fc2803")
@@ -53,7 +54,7 @@ screen Fishing:
 
     timer 0.02 repeat True action If(fish_pos + fish_speed<930 and fish_pos + fish_speed>70, true=SetVariable("fish_pos", fish_pos + fish_speed))    #положение рыбы меняется
     timer 1 repeat True action SetVariable("fish_speed", renpy.random.random()*12-6) #скорость рыбы меняется
-    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 85, true=SetVariable("progress", progress + 1.4), false=SetVariable("progress", progress - 1.2))
+    timer 0.02 repeat True action If(abs(cursor_pos-fish_pos)< 85, true=SetVariable("progress", progress + 2), false=SetVariable("progress", progress - 2))
     if progress<=0:
         timer 0.01 action Jump("fishing_lose")
     if progress >=1000:
@@ -61,6 +62,7 @@ screen Fishing:
 
 label fishing_lose:
     "Вы упустили рыбу. Придется попробовать еще раз"
+    $fishing_fails+=1
     $cursor_pos = 500
     $fish_pos = renpy.random.randint(300,700)
     $progress = 200
