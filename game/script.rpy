@@ -1489,6 +1489,7 @@ label start:
 
     #миниигра рыбалка
     scene shore
+    $show_torch()
     label fishing:
         show catcharpicture at left
         cat "Что ж, я уверена, что у нас получится что-то словить!"
@@ -1515,7 +1516,10 @@ label start:
     show catcharpicture at left
     cat "Интересно, хорошо это или плохо? Ладно, пойдем дальше."
 
-    scene forest_card
+    scene forest_card:
+        zoom 1.5
+        xalign 0.5
+    $show_torch()
     show catcharpicture at left
     cat "Ого, да там же карты на пне лежат! Кажется, это следующая часть задания!"
     hide catcharpicture
@@ -1531,6 +1535,7 @@ label start:
     label card_game_end:
     window show
     scene forest1
+    $show_torch()
     "Вы победили!"
     show catcharpicture at left
     cat "Не ясно, засчиталось ли нам что-то... Может, Маркус и вовсе нас обманул?"
@@ -1545,18 +1550,26 @@ label start:
 
 
     "Вы заходите дальше в лес, постепенно становится все темнее."
-    #добавить зажигание факела
+    $hide_torch()
+    $torch_lit = True
+    $show_torch()
     stop music
     play music "audio/necropolis.mp3" fadeout 1
     "Среди деревьев вы видите какие-то строения и решаете идти ближе к ним."
-    scene graveyard
+    scene graveyard:
+        zoom 1.5
+        xalign 0.5
+    $show_torch()
     "Строения оказываются могилами, а все это место - кладбищем."
     show catcharpicture at left
     cat "Как-то здесь очень неуютно...Ой!"
     cat "А что это там? За надгробиями!"
     #бой в рамках квеста с zombie и/или werewolf
 
-
+    $hide_torch()
+    $torch_lit = False
+    $show_torch()
+    "Вы погасили факел"
 
     #последняя часть - загадки
     scene forest1
