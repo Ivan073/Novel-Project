@@ -1,26 +1,22 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1502, in script
-    $whitewolf_choise += 1
-  File "game/script.rpy", line 1502, in <module>
-    $whitewolf_choise += 1
-NameError: name 'whitewolf_choise' is not defined
+  File "game/script.rpy", line 1651, in script
+    jump .end_fight
+ScriptError: could not find label 'zombie_fight.end_fight'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1502, in script
-    $whitewolf_choise += 1
-  File "renpy/ast.py", line 928, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "renpy/python.py", line 2245, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 1502, in <module>
-    $whitewolf_choise += 1
-NameError: name 'whitewolf_choise' is not defined
+  File "game/script.rpy", line 1651, in script
+    jump .end_fight
+  File "renpy/ast.py", line 1757, in execute
+    rv = renpy.game.script.lookup(target)
+  File "renpy/script.py", line 918, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'zombie_fight.end_fight'.
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Wed Aug 31 16:19:27 2022
+Wed Aug 31 18:27:24 2022

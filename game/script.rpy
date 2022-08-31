@@ -1566,6 +1566,102 @@ label start:
     cat "А что это там? За надгробиями!"
     #бой в рамках квеста с zombie и/или werewolf
 
+    "На вас нападает зомби"
+    label zombie_fight:
+        $in_fight = True
+        $hide_torch()
+        hide catcharpicture
+        $show_character([middle_left()])
+        show zombie at middle_right
+        $your_health = 3
+        $zombie_health = 4
+        if character_option == 4:
+            "C помощью своей темной магии вы смогли подчинить зомби и упокоить его"
+            jump .end_fight
+        label .fight_start:
+            "Зомби медленно прибижается к вам"
+            menu:
+                "Выберите действие"
+                "Атаковать":
+                    if character_option == 5:
+                        "Огонь сжигает зомби и он очень быстро погибает"
+                        jump .fight_end
+                    $zombie_health-=1
+                    if zombie_health<=0:
+                        "Зомби наконец умирает окончательно"
+                        jump .fight_end
+                    "Вы раните зомби, но он похоже не обращает внимания на раны и хватает вас"
+                    
+                    jump .zombie_close
+                "Защититься":
+                    "Зомби пытается отгрызть вам руку!"
+                    $your_health-=1
+                    if your_health <=0:
+                        "Вы окончательно обессилели от накопившихся ран."
+                        jump death
+                    jump .zombie_close
+                "Увернуться":
+                    "Вы без труда отдаляетесь от него"
+                    jump .zombie_far
+
+        label .zombie_close:
+            "Зомби держит вас и пытается перегрызть вам шею"
+            menu:
+                "Выберите действие"
+                "Атаковать":
+                    if character_option == 1:
+                        "Вы отрубаете голову зомби. Слепого зомби вы добили без проблем"
+                        jump .fight_end
+                    elif character_option == 3:
+                        "Атака ветром отбрасывает зомби далеко"
+                        $zombie_health-=1
+                        jump .zombie_far
+                    else:
+                        $zombie_health-=1
+                        "Ваша атака отбрасывает зомби"
+                        jump .fight_start
+                   
+                "Защититься":
+                    "У вас не получилось защититься в захвате. Зомби вызвал у вас смертельное кровотечение из артерии"
+                    jump death
+                "Увернуться":
+                    "Вы вырвались из захвата зомби, но он успел значительно вас ранить"
+                    $your_health-=2
+                    if your_health<=0:
+                        "Накопившиеся раны не дали вам продолжить бой"
+                        jump death
+                    jump .fight_start
+
+        label .zombie_far:
+            "Зомби далеко от вас"
+            menu:
+                "Выберите действие"
+                "Атаковать":
+                    if character_option == 1:
+                        "Для атаки вам пришлось приблизиться, но она сильно ранила зомби"
+                        $zombie_health-=2
+                        jump .zombie_close
+                    if character_option == 5:
+                        "Огонь сжигает зомби и он очень быстро погибает"
+                        jump .fight_end
+                    "Ваша атака ранила зомби"
+                    $zombie_health-=1
+                    if zombie_health<=0:
+                        "Зомби наконец умирает окончательно"
+                        jump .fight_end
+                    jump .fight_start
+
+                "Защититься":
+                    jump .fight_start
+                "Бежать":                                                   #вариант с побегом, можно использовать чтобы увеличить очки какого-нибудь питомца
+                    "Зомби был очень меделенным и вы смогли от него убежать"
+                    jump .fight_start
+        label .fight_end:
+            hide goblin
+            $hide_character()
+            $in_fight = False
+
+
     $hide_torch()
     $torch_lit = False
     $show_torch()

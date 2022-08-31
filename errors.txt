@@ -2,9 +2,17 @@
 errors listed below, and try again.
 
 
-File "game/card_mg.rpy", line 61: invalid syntax
-    turns--
-    
+File "game/script.rpy", line 1615: expected ':' not found.
+    else if character_option == 3:
+         ^
+
+File "game/script.rpy", line 1619: expected statement.
+    else:
+        ^
+
+File "game/script.rpy", line 1651: expected statement.
+    .fight_start
+    ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Sun Aug 28 23:51:59 2022
+Wed Aug 31 18:26:00 2022
