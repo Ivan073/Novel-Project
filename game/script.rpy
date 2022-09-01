@@ -1677,10 +1677,10 @@ label start:
 
                 "Защититься":
                     jump .fight_start
-                "Бежать":                                                   #вариант с побегом, можно использовать чтобы увеличить очки какого-нибудь питомца
+                "Бежать":
                     "Зомби был очень меделенным и вы смогли от него убежать"
                     $rigen_choise += 1
-                    jump .fight_start
+                    jump .fight_end
         label .fight_end:
             hide zombie
             $hide_character()
