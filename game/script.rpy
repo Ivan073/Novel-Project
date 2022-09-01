@@ -54,7 +54,7 @@ init python:
         else:
             renpy.hide("ext_torch")
 
-    def show_pet(pos[]):
+    def show_pet(pos=[]):
         if pet_choise == 1:
              renpy.show("whitewolf", pos)
         if pet_choise == 2:

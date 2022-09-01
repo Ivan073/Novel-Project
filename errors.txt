@@ -2,17 +2,10 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1615: expected ':' not found.
-    else if character_option == 3:
-         ^
-
-File "game/script.rpy", line 1619: expected statement.
-    else:
-        ^
-
-File "game/script.rpy", line 1651: expected statement.
-    .fight_start
-    ^
+File "game/script.rpy", line 57: invalid syntax
+    def show_pet(pos[]):
+                     ^
+    
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Wed Aug 31 18:26:00 2022
+Thu Sep  1 12:11:06 2022
