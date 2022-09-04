@@ -112,7 +112,7 @@ label start:
 
     stop sound fadeout 1
     play sound 'audio/hum_falling.mp3'
-    play music "audio/dunF.mp3" fadeout 1
+    play music "audio/dunF.mp3" fadeout 1 volume 0.6
 
     $nc = "Пушистое нечто"
     scene dungeon
@@ -314,7 +314,7 @@ label start:
     cat "Обычный ледяной пол сменился узорчатыми плитками..."
     scene frozen_maze
     stop music
-    play music "audio/maze.mp3" fadeout 1
+    play music "audio/maze.mp3" fadeout 1 volume 0.6
 
     $show_torch()
     show catcharpicture at left
@@ -358,7 +358,7 @@ label start:
                             "Слизень вас игнорирует"
                             jump .fight_start
 
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 hide slime
                 $hide_character()
                 $in_fight = False
@@ -402,7 +402,7 @@ label start:
                             "Слизень вас игнорирует"
                             jump .fight2_start
 
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 hide slime2
                 $hide_character()
                 $in_fight = False
@@ -475,7 +475,7 @@ label start:
                             "Гоблин оправился от удара"
                             jump .fight_start
 
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 hide goblin
                 $hide_character()
                 $in_fight = False
@@ -513,7 +513,9 @@ label start:
             "Куда идем?"
             "Налево":
                 "Эта дверь сразу кажется подозрительной, но вы все равно открываете ее"
-                scene snakes
+                scene snakes:
+                    zoom 1.2
+                    xalign 0.5
                 $show_torch()
                 "В ваших глазах темнеет после множественных змеиных укусов."
                 jump death
@@ -535,7 +537,9 @@ label start:
 
             "Направо":
                 "Из-за двери веет свежим ветром. Может, это выход?"
-                scene clouds
+                scene clouds:
+                    zoom 2.4
+                    xalign 0.5
                 $show_torch()
                 if character_option == 3:
                     $show_character([truecenter()])
@@ -708,7 +712,7 @@ label start:
                             jump .fire_attack
 
                 label .end_fight:
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 "Вы победили"
                 hide hakutaku
                 $hide_character()
@@ -757,7 +761,10 @@ label start:
 
             "Направо":
                 "Вы слышите тихое поскрипывание, раздающееся словно от старого дерева."
-                scene roots
+                scene roots:
+                    zoom 1.4
+                    xalign 0.5
+                    yalign 0.35
                 $show_torch()
                 if character_option == 1:
                     $show_character([truecenter()])
@@ -780,7 +787,9 @@ label start:
 
             "Вперед":
                 "За дверью свистит ветер и слышен негромкий стук перекатывающихся камней."
-                scene live_mountain
+                scene live_mountain:
+                    zoom 2.0
+                    xalign 0.5
                 $show_torch()
                 mount "Ого! Путники! А разгадайте-ка мою загадку!"
                 mount "Ввысь идет, но не растет. На деревья сверху взирает, но корни свои скрывает."
@@ -801,16 +810,20 @@ label start:
 
             "Направо":
                 "Вы чувствуете паутину, попадающую вам на лицо."
-                scene spider
+                scene spider:
+                    zoom 3.5
+                    xalign 0.5
+                    yalign 0.5
                 $show_torch()
                 "Вы умерли от укуса ядовитого паука."
                 jump death
 
     label room7:
     #отображение подсказок
+    scene frozen_maze
     show runa at center_door
-    show runa at right_door
-    show runa at left_door
+    show runa1 at right_door
+    show runa2 at left_door
     menu:
             "Эта комната кажется подозрительной."
             "Налево":
@@ -851,7 +864,9 @@ label start:
 
             "Направо":
                 "Кажется, за дверью слышно пение птиц."
-                scene Jungle
+                scene jungle:
+                    zoom 2.5
+                    xalign 0.5
                 $show_torch()
                 "Вы заблудились в джунглях и умерли от жажды."
                 jump death
@@ -878,7 +893,9 @@ label start:
 
             "Вперед":
                 "За дверью свистит ветер и слышен негромкий стук перекатывающихся камней."
-                scene live_mountain
+                scene live_mountain:
+                    zoom 2.0
+                    xalign 0.5
                 $show_torch()
                 mount "Ого! Путники! А разгадайте-ка мою загадку!"
                 mount "Кто новым может быть и старым; кто может и расти и убывать; кто полон может быть, но не бывает пуст, кто виден лишь когда почти у всех глаза закрыты?"
@@ -900,7 +917,10 @@ label start:
 
             "Направо":
                 "За дверью слышится утробное бульканье."
-                scene lava
+                scene lava:
+                    zoom 2.5
+                    xalign 0.5
+                    yalign 0.4
                 $show_torch()
                 "Вы решили поплавать в лаве."
                 jump death
@@ -1046,7 +1066,7 @@ label start:
                             jump .fire_attack
 
                 label .end_fight:
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 "Вы победили"
                 hide hakutaku
                 $hide_character()
@@ -1157,7 +1177,7 @@ label start:
                                     jump death
 
                 label .end_fight2:
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 hide foxman
                 $hide_character()
                 $in_fight = False
@@ -1213,7 +1233,7 @@ label start:
                             "Гоблин оправился от удара"
                             jump .fight_start3
 
-                play sound "audio/victory.mp3"
+                play sound "audio/victory.mp3" volume 0.1
                 hide goblin
                 $hide_character()
                 $in_fight = False
@@ -1233,14 +1253,21 @@ label start:
 
             "Вперед":
                 "Вы слышите подозрительное шипение."
-                scene boom
+                scene black
+                show boom:
+                    xalign 0.5
+                    yalign 0.5
+                    zoom 1.5
                 $show_torch()
                 "Вы были взорваны зельем."
                 jump death
 
             "Направо":
                 "За дверью слышится утробное бульканье."
-                scene lava
+                scene lava:
+                    zoom 2.5
+                    xalign 0.5
+                    yalign 0.4
                 $show_torch()
                 "Вы решили поплавать в лаве."
                 jump death
@@ -1289,7 +1316,9 @@ label start:
 
             "Направо":
                 "Кажется, за дверью слышно пение птиц."
-                scene Jungle
+                scene jungle:
+                    zoom 2.5
+                    xalign 0.5
                 $show_torch()
                 "Вы заблудились в джунглях и умерли от жажды."
                 jump death
@@ -1300,7 +1329,10 @@ label start:
             "Подозрительная комната"
             "Налево":
                 "За дверью слышится утробное бульканье."
-                scene lava
+                scene lava:
+                    zoom 2.5
+                    xalign 0.5
+                    yalign 0.4
                 $show_torch()
                 "Вы решили поплавать в лаве."
                 jump death
@@ -1314,7 +1346,9 @@ label start:
 
             "Направо":
                 "За дверью слышен тихий смех."
-                show foxman at truecenter
+                show foxman at truecenter:
+                    zoom 3.0
+                    yalign 0.65
                 "Странное существо выскочило на вас, а после наступила темнота."
                 jump death
 
@@ -1324,7 +1358,9 @@ label start:
             "Подозрительная комната"
             "Налево":
                 "За дверью слышен тихий смех."
-                show foxman at truecenter
+                show foxman at truecenter:
+                    zoom 3.0
+                    yalign 0.65
                 "Странное существо выскочило на вас, а после наступила темнота."
                 jump death
 
@@ -1358,7 +1394,7 @@ label start:
     scene forest1
     "Постепенно вы ступаете во владения деревьев, где со всех сторон слышатся лесные звуки"
     stop music
-    play music "audio/forest_m.mp3" fadeout 1
+    play music "audio/forest_m.mp3" fadeout 1 volume 0.6
     $show_torch()
     show catcharpicture at left
     cat "Какой густой лес... Погоди-ка.."
@@ -1405,7 +1441,9 @@ label start:
                 "Энт восстановил себя с помощью корней."
                 jump .fight_start_tre
 
-    play sound "audio/victory.mp3"
+    $ renpy.music.set_volume(0.00, delay=0, channel='music')
+    play sound "audio/victory.mp3" volume 0.1
+    $ renpy.music.set_volume(1.00, delay=0, channel='music')
     hide treant
     $hide_character()
     $in_fight = False
@@ -1419,7 +1457,7 @@ label start:
     gg "Неприятно то, что мы подняли много шума. Как бы сюда кто-то не сбежался.."
 
     #добавлен звук тяжелых шагов
-    play sound 'audio/ogre_steps.mp3'
+    play sound '<from 0 to 3>audio/ogre_steps.mp3'
 
     cat "Что это такое?"
     show ogr at middle_right
@@ -1519,7 +1557,7 @@ label start:
     #миниигра рыбалка
     scene shore
     stop music
-    play music "audio/water.mp3" fadeout 1
+    play music "audio/water.mp3" fadeout 1 
     $show_torch()
     label fishing:
         show catcharpicture at left
@@ -1548,7 +1586,7 @@ label start:
     cat "Интересно, хорошо это или плохо? Ладно, пойдем дальше."
 
     stop music
-    play music "audio/forest_m.mp3" fadeout 1
+    play music "audio/forest_m.mp3" fadeout 1 volume 0.6
     scene forest_card:
         zoom 1.5
         xalign 0.5
@@ -1695,7 +1733,9 @@ label start:
                     $rigen_choise += 1
                     jump .fight_end
         label .fight_end:
-            play sound "audio/victory.mp3"
+            $ renpy.music.set_volume(0.00, delay=0, channel='music')
+            play sound "audio/victory.mp3" volume 0.1
+            $ renpy.music.set_volume(1.00, delay=0, channel='music')
             hide zombie
             $hide_character()
             $in_fight = False
