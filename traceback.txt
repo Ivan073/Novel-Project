@@ -1,22 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1651, in script
-    jump .end_fight
-ScriptError: could not find label 'zombie_fight.end_fight'.
+  File "game/script.rpy", line 1805, in script
+    if $pet_choise == 1:
+SyntaxError: invalid syntax (script.rpy, line 1805)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1651, in script
-    jump .end_fight
-  File "renpy/ast.py", line 1757, in execute
-    rv = renpy.game.script.lookup(target)
-  File "renpy/script.py", line 918, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'zombie_fight.end_fight'.
+  File "game/script.rpy", line 1805, in script
+    if $pet_choise == 1:
+  File "renpy/ast.py", line 1898, in execute
+    if renpy.python.py_eval(condition):
+  File "renpy/python.py", line 2274, in py_eval
+    code = py_compile(code, 'eval')
+  File "renpy/python.py", line 835, in py_compile
+    raise e
+SyntaxError: invalid syntax (script.rpy, line 1805)
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Wed Aug 31 18:27:24 2022
+Fri Sep  2 16:37:52 2022

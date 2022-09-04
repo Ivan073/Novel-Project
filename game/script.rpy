@@ -11,6 +11,7 @@ define min = Character('Минос, Король Лабиринта')
 define mount = Character('Живая гора')
 define mark = Character('Маркус')
 define pet = Character('[petname]')
+define syl = Character('Сильф')
 
 init python:
     pet_choise = 0
@@ -136,19 +137,19 @@ label start:
 
     label character_choise:
     menu:
-        "*вариант1*":
+        "Воин":
             jump get_character1
 
-        "*вариант2*":
+        "Водный маг":
             jump get_character2
 
-        "*вариант3*":
+        "Копейщик":
             jump get_character3
 
-        "*вариант4*":
+        "Темный колдун":
             jump get_character4
 
-        "*вариант5*":
+        "Огненная ведьма":
             jump get_character5
 
 
@@ -357,6 +358,7 @@ label start:
                             "Слизень вас игнорирует"
                             jump .fight_start
 
+                play sound "audio/victory.mp3"
                 hide slime
                 $hide_character()
                 $in_fight = False
@@ -400,6 +402,7 @@ label start:
                             "Слизень вас игнорирует"
                             jump .fight2_start
 
+                play sound "audio/victory.mp3"
                 hide slime2
                 $hide_character()
                 $in_fight = False
@@ -472,6 +475,7 @@ label start:
                             "Гоблин оправился от удара"
                             jump .fight_start
 
+                play sound "audio/victory.mp3"
                 hide goblin
                 $hide_character()
                 $in_fight = False
@@ -704,6 +708,7 @@ label start:
                             jump .fire_attack
 
                 label .end_fight:
+                play sound "audio/victory.mp3"
                 "Вы победили"
                 hide hakutaku
                 $hide_character()
@@ -1041,6 +1046,7 @@ label start:
                             jump .fire_attack
 
                 label .end_fight:
+                play sound "audio/victory.mp3"
                 "Вы победили"
                 hide hakutaku
                 $hide_character()
@@ -1151,6 +1157,7 @@ label start:
                                     jump death
 
                 label .end_fight2:
+                play sound "audio/victory.mp3"
                 hide foxman
                 $hide_character()
                 $in_fight = False
@@ -1206,6 +1213,7 @@ label start:
                             "Гоблин оправился от удара"
                             jump .fight_start3
 
+                play sound "audio/victory.mp3"
                 hide goblin
                 $hide_character()
                 $in_fight = False
@@ -1397,6 +1405,7 @@ label start:
                 "Энт восстановил себя с помощью корней."
                 jump .fight_start_tre
 
+    play sound "audio/victory.mp3"
     hide treant
     $hide_character()
     $in_fight = False
@@ -1509,6 +1518,8 @@ label start:
 
     #миниигра рыбалка
     scene shore
+    stop music
+    play music "audio/water.mp3" fadeout 1
     $show_torch()
     label fishing:
         show catcharpicture at left
@@ -1536,6 +1547,8 @@ label start:
     show catcharpicture at left
     cat "Интересно, хорошо это или плохо? Ладно, пойдем дальше."
 
+    stop music
+    play music "audio/forest_m.mp3" fadeout 1
     scene forest_card:
         zoom 1.5
         xalign 0.5
@@ -1682,6 +1695,7 @@ label start:
                     $rigen_choise += 1
                     jump .fight_end
         label .fight_end:
+            play sound "audio/victory.mp3"
             hide zombie
             $hide_character()
             $in_fight = False
@@ -1691,6 +1705,8 @@ label start:
     $torch_lit = False
     $show_torch()
     "Вы погасили факел, возвращаясь в освещенную часть леса."
+    stop music
+    play music "audio/forest_m.mp3" fadeout 1
 
     #последняя часть - загадки
     scene forest1
@@ -1752,7 +1768,7 @@ label start:
                 mark "Видимо, загадка оказалась слишком сложной.."
                 $rigen_choise += 1
                 jump rid_4
-    label rid4:
+    label rid_4:
         mark "Что за существо ходит на четырех ногах утром, на двух днем и на трех вечером?"
         menu:
             "Что вы думаете?"
@@ -1771,13 +1787,13 @@ label start:
     label rid_end:
         mark "Что же, все испытания закончены. А это значит, что сейчас к вам выйдет то существо, что сочтет вас достойным."
         cat "Интригующе!"
-        if ($whitewolf_choise > $phoenix_choise) and ($whitewolf_choise > $unicorn_choise) and ($whitewolf_choise > $rigen_choise):
+        if (whitewolf_choise > phoenix_choise) and (whitewolf_choise > unicorn_choise) and (whitewolf_choise > rigen_choise):
             $pet_choise = 1 #whitewolf
 
-        if ($phoenix_choise > $whitewolf_choise) and ($phoenix_choise > $unicorn_choise) and ($phoenix_choise > $rigen_choise):
+        if (phoenix_choise > whitewolf_choise) and (phoenix_choise > unicorn_choise) and (phoenix_choise > rigen_choise):
             $pet_choise = 2 #phoenix
 
-        if ($unicorn_choise > $whitewolf_choise) and ($unicorn_choise > $phoenix_choise) and ($unicorn_choise > $rigen_choise):
+        if (unicorn_choise > whitewolf_choise) and (unicorn_choise > phoenix_choise) and (unicorn_choise > rigen_choise):
             $pet_choise = 3 #unicorn
 
         else:
@@ -1802,34 +1818,50 @@ label start:
 
     #в зависимости от попавшегося питомца будут разные поиски огра
 
-    if $pet_choise == 1:
+    if pet_choise == 1:
         jump pet_whitewolf
-    if $pet_choise == 2:
+    if pet_choise == 2:
         jump pet_phoenix
-    if $pet_choise == 3:
+    if pet_choise == 3:
         jump pet_unicorn
-    if $pet_choise == 4:
+    if pet_choise == 4:
         jump pet_rigen
 
     label pet_whitewolf:
-        $show_pet([middle_left()])
+        $show_pet([truecenter])
         pet "У меня очень чуткий нюх."
         pet "Я чую след этого огра, еще не прошло так много времени, чтобы запах пропал."
 
     label pet_phoenix:
-        $show_pet([middle_left()])
+        $show_pet([truecenter])
         pet "У меня зоркий взгляд, однако ветви и листва деревьев мешают мне увидеть огра."
         pet "В лесу я бессилен, но если придется поискать кого-то в поле или в горах, то с этим я легко справлюсь."
 
     label pet_unicorn:
-        $show_pet([middle_left()])
+        $show_pet([truecenter])
         pet "Я не обладаю навыками для поиска существ, однако умею быстро бегать."
         pet "Мы быстро догоним огра, если сумеем понять, где он."
 
     label pet_rigen:
-        $show_pet([middle_left()])
+        $show_pet([truecenter])
         pet "У меня очень чуткий слух."
         pet "Я слышу грузные шаги этого существа за много миль."
+        cat "Значит, мы сможем найти его по звуку! Выдвигаемся!"
+        mark "Думаю, вам стоит взять еще одного маленького помощника для навигации по лесу."
+        show sylph at middle_left
+        mark "Познакомьтесь с Сильфом. Он поможет вам не заплутать среди деревьев."
+        "Поблагодарив Маркуса, вы все вместе отправляетесь туда, куда указывает [petnam]."
+        stop music
+        play music "audio/grass.mp3" fadeout 1
+        scene ruin1
+        "Шаг за шагом вы выходите к лесным руинам."
+        show catcharpicture at left
+        $show_pet([truecenter])
+        show sylph at middle_left
+        cat "Что это за место? Здесь раньше был город?"
+        syl "Да, но довольно давно. Сейчас тут пусто. И может быть опасно, так что будьте осмотрительнее."
+        "Все вместе вы осторожно продвигаетесь по заброшенному городу в поисках огра-беглеца."
+
 
 
 
