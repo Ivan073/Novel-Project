@@ -1658,7 +1658,7 @@ label start:
         if character_option == 4:
             "C помощью своей темной магии вы смогли подчинить зомби и упокоить его"
             $whitewolf_choise += 1
-            jump .end_fight
+            jump .fight_end
         label .fight_start:
             "Зомби медленно прибижается к вам"
             menu:
@@ -1842,10 +1842,10 @@ label start:
         if (whitewolf_choise > phoenix_choise) and (whitewolf_choise > unicorn_choise) and (whitewolf_choise > rigen_choise):
             $pet_choise = 1 #whitewolf
 
-        if (phoenix_choise > whitewolf_choise) and (phoenix_choise > unicorn_choise) and (phoenix_choise > rigen_choise):
+        elif (phoenix_choise > whitewolf_choise) and (phoenix_choise > unicorn_choise) and (phoenix_choise > rigen_choise):
             $pet_choise = 2 #phoenix
 
-        if (unicorn_choise > whitewolf_choise) and (unicorn_choise > phoenix_choise) and (unicorn_choise > rigen_choise):
+        elif (unicorn_choise > whitewolf_choise) and (unicorn_choise > phoenix_choise) and (unicorn_choise > rigen_choise):
             $pet_choise = 3 #unicorn
         else:
             $pet_choise = 4 #rigen
@@ -1961,6 +1961,8 @@ label start:
         cat "[petnam], ну и куда ты нас завел? Здесь ведь нет того огра!"
         pet "Не спешите с выводами."
         "Продвинувшись вглубь пещеры вы и впрямь всречаете [no1] и [no2]."
+        show ogre at truecenter:
+            zoom 2.5
         cat "Бежать вам некуда, а значит, рассказывайте все подобру-поздорову!"
         jump search_completed
 

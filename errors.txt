@@ -2,13 +2,17 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 2481: expected statement.
-    "Атаковать":
-               ^
+File "game/script.rpy", line 1845: expected ':' not found.
+    else if (phoenix_choise > whitewolf_choise) and (phoenix_choise > unicorn_choise) and (phoenix_choise > rigen_choise):
+         ^
 
-File "game/script.rpy", line 2483: expected statement.
-    "Защититься":
-                ^
+File "game/script.rpy", line 1848: expected statement.
+    else if (unicorn_choise > whitewolf_choise) and (unicorn_choise > phoenix_choise) and (unicorn_choise > rigen_choise):
+         ^
+
+File "game/script.rpy", line 1850: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 7.4.11.2266
-Wed Sep  7 00:28:27 2022
+Wed Sep  7 01:19:55 2022

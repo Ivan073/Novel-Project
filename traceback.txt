@@ -1,26 +1,22 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 2485, in script
-    $dead_pet = true
-  File "game/script.rpy", line 2485, in <module>
-    $dead_pet = true
-NameError: name 'true' is not defined
+  File "game/script.rpy", line 1661, in script
+    jump .end_fight
+ScriptError: could not find label 'zombie_fight.end_fight'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 2485, in script
-    $dead_pet = true
-  File "renpy/ast.py", line 928, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "renpy/python.py", line 2245, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 2485, in <module>
-    $dead_pet = true
-NameError: name 'true' is not defined
+  File "game/script.rpy", line 1661, in script
+    jump .end_fight
+  File "renpy/ast.py", line 1757, in execute
+    rv = renpy.game.script.lookup(target)
+  File "renpy/script.py", line 918, in lookup
+    raise ScriptError("could not find label '%s'." % str(original))
+ScriptError: could not find label 'zombie_fight.end_fight'.
 
 Windows-10-10.0.19041
 Ren'Py 7.4.11.2266
 Novel project 1.0
-Wed Sep  7 00:49:59 2022
+Wed Sep  7 01:15:41 2022
