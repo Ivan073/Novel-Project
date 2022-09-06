@@ -2,9 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1236: is not terminated with a newline. (Check strings and parenthesis.)
-(Perhaps you left out a ' at the end of the first line.)
-                    'play sound "audio/victory.mp3" volume 0.1
+File "game/script.rpy", line 1913: Indentation mismatch.
 
-Ren'Py Version: Ren'Py 7.4.11.2266
-Sun Sep  4 19:14:21 2022
+Ren'Py Version: Ren'Py 8.0.3.22090405
+Tue Sep  6 21:38:44 2022
