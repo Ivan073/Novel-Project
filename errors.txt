@@ -2,7 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1913: Indentation mismatch.
+File "game/script.rpy", line 2481: expected statement.
+    "Атаковать":
+               ^
 
-Ren'Py Version: Ren'Py 8.0.3.22090405
-Tue Sep  6 21:38:44 2022
+File "game/script.rpy", line 2483: expected statement.
+    "Защититься":
+                ^
+
+Ren'Py Version: Ren'Py 7.4.11.2266
+Wed Sep  7 00:28:27 2022

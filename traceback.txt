@@ -1,22 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1930, in script
-    jump .giant_dmg
-ScriptError: could not find label 'start_fight_2.giant_dmg'.
+  File "game/script.rpy", line 2485, in script
+    $dead_pet = true
+  File "game/script.rpy", line 2485, in <module>
+    $dead_pet = true
+NameError: name 'true' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1930, in script
-    jump .giant_dmg
-  File "D:\renpy-8.0.3-sdk\renpy\ast.py", line 1974, in execute
-    rv = renpy.game.script.lookup(target)
-  File "D:\renpy-8.0.3-sdk\renpy\script.py", line 927, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'start_fight_2.giant_dmg'.
+  File "game/script.rpy", line 2485, in script
+    $dead_pet = true
+  File "renpy/ast.py", line 928, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "renpy/python.py", line 2245, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 2485, in <module>
+    $dead_pet = true
+NameError: name 'true' is not defined
 
-Windows-10-10.0.19044 AMD64
-Ren'Py 8.0.3.22090405
+Windows-10-10.0.19041
+Ren'Py 7.4.11.2266
 Novel project 1.0
-Tue Sep  6 21:39:45 2022
+Wed Sep  7 00:49:59 2022

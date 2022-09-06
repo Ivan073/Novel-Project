@@ -2026,7 +2026,8 @@ label start:
             scene forestpath
             show catcharpicture at left
             $show_pet([right])
-            show ogre at truecenter
+            show ogre at truecenter:
+                zoom 2.5
             "Пройдя чуть дальше по дороге вы находите того самого огра."
             cat "Вы пойманы! И теперь никуда не сбежите! Рассказывайте, что вам известно!"
             jump search_completed
@@ -2098,7 +2099,8 @@ label start:
             scene forestpath
             show catcharpicture at left
             $show_pet([right])
-            show ogre at truecenter
+            show ogre at truecenter:
+                zoom 2.5
             "Пройдя чуть дальше по дороге вы находите того самого огра."
             cat "Вы пойманы! И теперь никуда не сбежите! Рассказывайте, что вам известно!"
             jump search_completed
@@ -2129,6 +2131,7 @@ label start:
             "Сражаться самому":
                 scene ruin1
                 $show_character([middle_left()])
+                hide catcharpicture
                 show giant at middle_right
                 $in_fight = True
                 $wounded = False
@@ -2187,6 +2190,7 @@ label start:
             hide giant
             $hide_character()
             $in_fight = False
+            jump giant_fight_end
 
             label rigen_ogre:
                 $show_pet([middle_left()])
@@ -2197,6 +2201,7 @@ label start:
                 hide giant
                 $hide_pet()
 
+        label giant_fight_end:
         show catcharpicture at left
         $show_pet([truecenter])
         show sylph at middle_left
@@ -2204,8 +2209,10 @@ label start:
         syl "Боюсь, мне пора возвращаться.. Мне неуютно в этих руинах, ведь я дух леса."
         cat "Спасибо за помощь, было приятно иметь с тобой дело!"
         "Сильф скрывается среди деревьев."
+        hide sylph
         pet "Я слышу еще шаги, прямо за этим зданием."
-        show ogre at middle_left
+        show ogre at middle_right:
+            zoom 2.5
         "Из-за здания появляется огр."
         nn "Вы все-таки нашли нас!"
         non "Как вам это удалось?"
@@ -2238,10 +2245,11 @@ label start:
         boss "И вот ты, герой, снова пришел в мои владения попытать удачу."
         "Постепенно в зале становится светлее. Наконец вам удается рассмотреть своего собеседника."
         scene zal
-        show catcharpicture at left
+       
         $show_pet([middle_left])
+        show catcharpicture at left
         show lich at middle_right
-        cat "Так это ты  скинул [name] в ту пещеру?!"
+        cat "Так это ты скинул [name] в ту пещеру?!"
         "Вы слышите скрежещущий смех существа, представшего перед вами."
         boss "И да, и нет."
         gg "Как это понимать?!"
@@ -2291,7 +2299,7 @@ label start:
             $in_fight = True
             $boss_health = 5
             $your_health = 4
-            $dead_pet = false
+            $dead_pet = False
             label thelast_start:
                 play sound "audio/batstar.mp3"
                 menu:
@@ -2476,15 +2484,16 @@ label start:
                         jump attack
 
             label without_pet:
-                $dead_pet = true
+                $dead_pet = True
                 boss "Теперь ты остался один, посмотрим, на что ты способен!"
-                "Атаковать":
-                    "Из-за смерти питомца вы срываетесь в яростную атаку и уничтожаете Повелителя Пустоши."
-                "Защититься":
-                    "Не забывая об осторожности, вы защищаетесь."
-                    boss "Боишься? И правильно!"
-                    "Повелитель швыряет шторм тьмы в ваш щит, однако тот отражается и убивает самого Повелителя Пустоши."
-                    jump the_end
+                menu:
+                    "Атаковать":
+                        "Из-за смерти питомца вы срываетесь в яростную атаку и уничтожаете Повелителя Пустоши."
+                    "Защититься":
+                        "Не забывая об осторожности, вы защищаетесь."
+                        boss "Боишься? И правильно!"
+                        "Повелитель швыряет шторм тьмы в ваш щит, однако тот отражается и убивает самого Повелителя Пустоши."
+                        jump the_end
 
             label the_end:
             play sound "audio/victory.mp3" volume 0.1
@@ -2494,7 +2503,7 @@ label start:
             $in_fight = False
             show catcharpicture at left
 
-            if $dead_pet == false:
+            if dead_pet == False:
                 $show_pet([truecenter])
 
             cat "Ура! Победа за нами! И замок теперь наш!"
@@ -2505,7 +2514,7 @@ label start:
             play music "audio/goodend.mp3" fadeout 1
             show catcharpicture at left
 
-            if $dead_pet == false:
+            if dead_pet == False:
                 $show_pet([middle_right])
                 pet "Мы выиграли и теперь можем жить свободно и счастливо."
 
